@@ -1,0 +1,16 @@
+[
+  {
+    "title": "The Unreasonable Effectiveness of Recurrent Neural Networks",
+    "authors": "Andrej Karpathy",
+    "url": "https://karpathy.github.io/2015/05/21/rnn-effectiveness/",
+    "status": "unread",
+    "categories": ["rnn", "nlp"]
+  },
+  {
+    "title": "The state of Computer Vision and AI: we are really, really far away.",
+    "authors": "Andrej Karpathy",
+    "url": "https://karpathy.github.io/2012/10/22/state-of-computer-vision/",
+    "status": "read",
+    "categories": ["computer-vision"]
+  }
+]

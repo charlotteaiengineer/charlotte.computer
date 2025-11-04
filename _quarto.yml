@@ -1,0 +1,42 @@
+project:
+  type: website
+  resources:
+    - data/**
+
+execute-dir: project
+
+website:
+  title: "charlotte.computer"
+
+  navbar:
+    left:
+      - text: Topics
+        href: index.qmd
+      - text: Papers
+        href: papers.qmd
+      - text: Quizzes
+        href: quizzes.qmd
+      - text: Bookshelf
+        href: books.qmd
+      - text: Courses
+        href: courses.qmd
+    right:
+      - text: About
+        href: about.qmd
+      # - text: Blog
+      #   href: blog/index.qmd
+      # - text: Resources
+      #   href: resources.qmd
+      # - text: Projects
+      #   href: projects/index.qmd
+    sidebar:
+    style: "docked"
+    search: true
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+    css: styles.css
+    toc: true

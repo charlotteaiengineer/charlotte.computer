@@ -1,0 +1,119 @@
+---
+page-layout: full
+---
+<!-- 
+```{listing}
+contents: projects
+sort: "date desc"
+type: grid
+grid-columns: 3
+fields: [image, title, description, date, categories]
+image-align: left
+categories: true
+filter-ui: true
+page-size: 6
+max-description-length: 160
+image-placeholder: images/valley.png
+``` -->
+
+::: {.columns}
+::: {.column width="65%"}
+Hey there — I’m Charlotte, a Frontend‑focused Product Developer who loves building fast, elegant, and accessible web experiences. I dive deep, move quickly, and use strong workflows to ship pixel‑perfect UI.
+
+I started by asking “can I build this?” and dove head‑first into full‑stack projects. Today I lean frontend, collaborate closely with design, and sweat the details that make products feel alive.
+
+**Focus areas**
+- Pixel‑perfect UI and component systems
+- Rapid, feedback‑driven iteration
+- Performance, accessibility, and DX
+:::
+::: {.column width="35%"}
+
+![](/images/me.png)
+
+Ipswich, UK  
+[LinkedIn](https://www.linkedin.com/in/charlotte-bondarev-4962a5264/) · [GitHub](https://github.com/prophecyengineer)  
+<!-- Phone: +44 7827 3XXXX -->
+:::
+:::
+
+### Skills
+**Core**: TypeScript, React, Next.js, JavaScript, UI/UX, Testing (Playwright)  
+**UI Systems**: shadcn/ui, TailwindCSS, design systems, atomic design  
+**Backend/Infra**: Node.js, GraphQL/REST, Serverless, AWS (S3, Lambda, DynamoDB, Amplify), Docker, Netlify  
+**CMS**: Contentful, Payload CMS  
+**Data/DB**: MongoDB, SQL, PostgreSQL  
+**Tooling**: Git, Figma, Linear, Adobe Analytics, Prisma, Heroku, Railway  
+
+### Experience
+
+::: {.columns}
+::: {.column width="5%"}
+![](./images/hargreaves.png?width=50px)
+
+:::
+::: {.column width="2%"}
+:::
+::: {.column width="93%"}
+**Frontend Engineer · Hargreaves Lansdown** (03/2023 — current)  
+- Led rebuild of main and dropdown menus on `hl.co.uk` with Next.js and Contentful  
+- Built new Help Docs and News & Insights from scratch; promoted to Pensions team  
+- Owned calculators and high‑traffic apps; integrated Adobe Analytics  
+- Migrated UI to an internal library; TDD; sole manager of three repos  
+- Mentored two apprentices; taught Playwright/Next.js; wrote technical docs
+:::
+:::
+
+::: {.columns}
+::: {.column width="5%"}
+![](/images/munch.png?width=50px)
+
+
+:::
+::: {.column width="2%"}
+:::
+::: {.column width="93%"}
+**Frontend Engineer · Munch** (01/2021 — 01/2023)  
+- Mobile‑first website builder with complex multi‑touch interactions  
+- Rebuilt the entire menu system for responsiveness and configurability  
+- Improved productivity via modular architecture and clear routing/naming  
+- Migrated frontend from Craft.js to Google Web Stories in one weekend; desktop/mobile editor up within a week
+:::
+:::
+
+
+
+
+
+**CPO · Kynk** (04/2019 — 08/2020)  
+- Product discovery and UX; user research into user stories and flows  
+- Pitched scope and product vision to engineering team  
+- Explored payments for creator‑safe platform
+
+**WordPress Developer · Lella.co** (01/2019 — 06/2019)  
+- Built and maintained the site; advised on product positioning
+
+
+
+### Currently exploring
+- AI companion to support autistic people (React/Next.js)  
+- In‑browser OS (Tauri/React Native)  
+- AliveUI — rapidly composable UI library  
+- Product planning with Figma and Linear
+
+### Get in touch
+If you’re building ambitious, design‑led products and want to ship fast with quality, let’s talk.
+
+
+
+
+
+
+---
+listing:
+  contents: blog
+  type: table
+  sort: "date desc"
+  fields: [title, description]
+---
+

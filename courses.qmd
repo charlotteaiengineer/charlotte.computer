@@ -1,0 +1,206 @@
+---
+title: "Courses"
+format:
+  html:
+    toc: false
+---
+
+<style>
+.masonry-grid {
+  column-count: 2;
+  column-gap: 16px;
+}
+@media (min-width: 700px) {
+  .masonry-grid { column-count: 3; }
+}
+@media (min-width: 1100px) {
+  .masonry-grid { column-count: 3; }
+}
+.card {
+  break-inside: avoid;
+  display: block;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  margin: 0 0 16px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+.card img {
+  width: 100%;
+  height: 150px;
+  display: block;
+  object-fit: cover;
+  border-radius: 12px 12px 0px 0px;
+}
+.meta { padding: 12px 14px 14px; }
+.title-row { display:flex; align-items:center; justify-content: space-between; gap:8px; margin-bottom: 6px; }
+.title { font-weight: 700; font-size: 15px; line-height: 1.35; }
+.authors { font-size: 13px; color: rgba(0,0,0,0.65); }
+/* Status dot */
+.status-dot { width: 8px; height: 8px; border-radius: 50%; display:inline-block; flex: 0 0 8px; }
+.status-read { background:#43a047; }
+.status-inprogress { background:#fdd835; }
+.status-unread { background:#e53935; }
+/* Filters and empty state */
+.filters { display:flex; gap:8px; flex-wrap:wrap; margin: 0 0 10px; }
+.filter-btn { background:#fff; border:1px solid rgba(0,0,0,0.15); color:#333; padding:6px 12px; border-radius:20px; cursor:pointer; font-size:12px; font-weight:600; }
+.filter-btn.active { background:#111; color:#fff; border-color:#111; }
+.empty-state { text-align:center; color: rgba(0,0,0,0.6); padding: 20px 10px; }
+/* Status legend */
+.status-legend { position: fixed; top: 10px; right: 12px; gap: 20px; align-items: center; font-size: 12px; background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 999px; padding: 4px 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); z-index: 100; height: 30px; }
+.status-legend .status-dot { margin-right: 4px; }
+</style>
+
+<div class="status-legend" aria-label="Progress key">
+  <span class="status-dot status-unread"></span> Not started
+  <span class="status-dot status-inprogress" style="margin-left: 14px;"></span> In progress
+  <span class="status-dot status-read" style="margin-left: 14px;" ></span> Completed
+</div>
+<div id="courses-filters" class="filters"></div>
+
+
+<div id="courses-grid" class="masonry-grid"></div>
+<div id="courses-empty" class="empty-state" style="display:none;">No items found.</div>
+
+<!-- courses data externalized to data/courses.json -->
+
+<script>
+(function(){
+  const grid = document.getElementById('courses-grid');
+  const filtersEl = document.getElementById('courses-filters');
+  const emptyEl = document.getElementById('courses-empty');
+  let items = [];
+  let activeCategory = 'all';
+
+  function getYouTubeId(url) {
+    try {
+      const u = new URL(url);
+      if (u.hostname === 'youtu.be') return u.pathname.slice(1);
+      if (u.hostname.includes('youtube.com')) {
+        if (u.pathname === '/watch') return u.searchParams.get('v');
+        if (u.pathname.startsWith('/embed/')) return u.pathname.split('/')[2];
+        if (u.pathname.startsWith('/shorts/')) return u.pathname.split('/')[2];
+      }
+    } catch (_) { /* ignore */ }
+    return null;
+  }
+
+  function thumbnailFromUrl(url) {
+    // YouTube
+    const yt = getYouTubeId(url);
+    if (yt) return `https://img.youtube.com/vi/${yt}/hqdefault.jpg`;
+    // O'Reilly (best effort): try constructing a cover URL from trailing ID
+    try {
+      const u = new URL(url);
+      if (u.hostname.includes('learning.oreilly.com')) {
+        const parts = u.pathname.split('/').filter(Boolean);
+        const tail = parts[parts.length - 1];
+        const id = tail && tail !== 'view' ? tail : (parts[parts.length - 2] || '');
+        if (id) {
+          // Attempt known cover patterns; onerror will gracefully fallback
+          return `https://learning.oreilly.com/covers/urn:orm:video:${id}/400w/`;
+        }
+      }
+      // Frontend Masters (best effort): derive slug from path and use graph image
+      if (u.hostname.includes('frontendmasters.com')) {
+        const partsFm = u.pathname.split('/').filter(Boolean);
+        const slug = partsFm[partsFm.length - 1];
+        if (slug) {
+          const fePosterOverrides = {
+            'practical-machine-learning': 'https://static.frontendmasters.com/assets/courses/2020-03-03-practical-machine-learning/posterframe.webp',
+            'python-ai': 'https://static.frontendmasters.com/assets/courses/2025-08-22-python-ai/posterframe.webp',
+            'practical-python': 'https://static.frontendmasters.com/assets/courses/2020-12-22-practical-python/posterframe.webp',
+            'ai-agents': 'https://static.frontendmasters.com/assets/courses/2024-12-10-ai-agents/posterframe.webp',
+            'hard-parts-ai': 'https://static.frontendmasters.com/assets/courses/2025-01-17-hard-parts-ai/posterframe.webp'
+          };
+          if (fePosterOverrides[slug]) return fePosterOverrides[slug];
+          // Best-effort generic poster path
+          return `https://static.frontendmasters.com/assets/courses/${slug}/posterframe.webp`;
+        }
+      }
+    } catch (_) { /* ignore */ }
+    return 'https://via.placeholder.com/600x340?text=No+Thumbnail';
+  }
+
+  function statusInfo(s) {
+    if (!s) return null;
+    const key = String(s).toLowerCase();
+    if (key === 'read' || key === 'completed' || key === 'complete') return { cls: 'status-read', label: 'Completed' };
+    if (key === 'in-progress' || key === 'inprogress') return { cls: 'status-inprogress', label: 'In progress' };
+    if (key === 'unread' || key === 'not-started') return { cls: 'status-unread', label: 'Not started' };
+    return null;
+  }
+
+  function cardHTML(d) {
+    const a = document.createElement('a');
+    a.className = 'card';
+    a.href = d.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    const si = statusInfo(d.status);
+    const dot = si ? `<span class="status-dot ${si.cls}" title="${si.label}"></span>` : '';
+    const byline = d.authors || d.instructor || d.channel || '';
+    const imgSrc = d.image || thumbnailFromUrl(d.url);
+    a.innerHTML = `
+      <img loading="lazy" src="${imgSrc}" alt="${d.title}" onerror="this.onerror=null;this.src='https://via.placeholder.com/600x340?text=No+Thumbnail'">
+      <div class="meta">
+        <div class="title-row"><div class="title">${d.title}</div>${dot}</div>
+        <div class="authors">${byline}</div>
+      </div>`;
+    return a;
+  }
+
+  function uniqueCategories() {
+    const set = new Set();
+    items.forEach(d => {
+      if (Array.isArray(d.categories)) d.categories.forEach(c => set.add(String(c)));
+      else if (d.category) set.add(String(d.category));
+      else if (Array.isArray(d.tags)) d.tags.forEach(t => set.add(String(t)));
+    });
+    return Array.from(set).sort((a,b)=>a.localeCompare(b));
+  }
+
+  function renderFilters() {
+    const cats = uniqueCategories();
+    filtersEl.innerHTML = '';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn' + (activeCategory === 'all' ? ' active' : '');
+    allBtn.textContent = 'All';
+    allBtn.addEventListener('click', () => { activeCategory = 'all'; renderFilters(); render(); });
+    filtersEl.appendChild(allBtn);
+    cats.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn' + (activeCategory === cat ? ' active' : '');
+      btn.textContent = cat;
+      btn.addEventListener('click', () => { activeCategory = cat; renderFilters(); render(); });
+      filtersEl.appendChild(btn);
+    });
+  }
+
+  function render() {
+    grid.innerHTML = '';
+    const visible = items.filter(d => {
+      if (activeCategory === 'all') return true;
+      if (Array.isArray(d.categories)) return d.categories.includes(activeCategory);
+      if (d.category) return String(d.category) === activeCategory;
+      if (Array.isArray(d.tags)) return d.tags.includes(activeCategory);
+      return false;
+    });
+    visible.forEach(d => grid.appendChild(cardHTML(d)));
+    emptyEl.style.display = visible.length ? 'none' : 'block';
+  }
+
+  function init() {
+    fetch('data/courses.json')
+      .then(r => r.json())
+      .then(json => { items = Array.isArray(json) ? json : []; renderFilters(); render(); })
+      .catch(() => { items = []; renderFilters(); render(); });
+  }
+
+  init();
+})();
+</script>
+
+
+

@@ -1,0 +1,17 @@
+---
+title: "Projects"
+page-layout: full
+listing:
+  contents: .
+  sort: "date desc"
+  type: default
+  fields: [image, title, description, date, categories]
+  image-align: left
+  categories: true
+  filter-ui: true
+  page-size: 12
+---
+
+Selected projects with short write‑ups. Click through for details.
+
+

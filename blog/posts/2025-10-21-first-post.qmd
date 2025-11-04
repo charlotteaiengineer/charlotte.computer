@@ -1,0 +1,143 @@
+---
+title: "Why I'm Building an AI Engineer Curriculum in Public"
+description: "Kicking off the blog with intent, scope, and how I’ll share progress."
+date: 2025-10-21
+# categories: [meta, roadmap]
+# image: /me.jpeg
+---
+
+### I want to retrain to make AI systems
+
+Why a change in career? I've been finding fullstack engineering un-impactful and un-fulfilling. Rendering out data on a page; designing that page to pixel perfection, and getting millions of clicks on buttons I have created doesn't feel awesome to me.
+
+I'm so glad I went down this route and tried it out... however when I tell people what they should do with their lives, I tell them to study AI and get involved. 
+
+It is the next technological revolution and I want to be part of it. I like how it's the closest thing to understand the human brain and trying to emulate it. I like how we become gods in a way of our own simulation. - It's becoming clearer that we are within a simulation, so I want to be a part of the people able to bend the matrix and understand it.
+
+AI isn't only interesting for making lots of money. It could do so much for us. [Neuralink](https://neuralink.com/) comes to mind. That's directly some of the most incredible impactful outcomes I've seen in my life.
+
+In another sense I want to get to see AGI. To understand the human mind, truly. I find human intelligence fascinating.
+
+
+### My Dream job 
+
+- Title: AGI Engineer
+- Team: The Artificial General Intelligence (AGI) team 
+- Working for a massive well known company like OpenAI, Meta, Amazon...
+- prototype new technology
+- Work on creating systems better than the human brain
+- Proven track record of designing, building, and shipping real-time ML products
+- Strong foundation in signal processing, algorithms, and software engineering principles
+
+> I need to find the most fascinating stage of training Neural Networks to me, then I'll find the right specialisation.
+
+### Sample Projects must be in portfolio
+
+Optimizing the throughput of novel attention mechanisms
+Comparing compute efficiency of different Transformer variants
+Preparing large-scale datasets for efficient model consumption
+Scaling distributed training jobs to thousands of GPUs
+Designing fault tolerance strategies for our training infrastructure
+Creating interactive visualizations of model internals, such as attention patterns
+
+### Must-Haves from listings
+
+- Computer Science Degree or equivalent
+- Possess strong programming skills in Python
+- Expertise in Python and experience with deep learning frameworks (PyTorch preferred)
+- Implementing LLM finetuning algorithms, such as RLHF
+- Experience with open-source ML toolkits and frameworks (eg. PyTorch, TensorFlow, etc)
+- Have experience with training, evaluating, or monitoring large language models
+- Language modeling with transformers
+- Large-scale ETL
+Work on high-performance, large-scale ML systems
+Familiarity with GPUs, Kubernetes, and OS internals
+Experience with language modeling using transformer architectures
+Knowledge of reinforcement learning techniques
+Background in large-scale ETL processes
+Are eager to learn more about machine learning research
+Are working to align state of the art models with human values and preferences, understand and interpret deep neural networks, or develop new models to support these areas of research
+View research and engineering as two sides of the same coin, and seek to understand all aspects of our research program as well as possible, to maximize the impact of your insights
+Have ambitious goals for AI safety and general progress in the next few years, and you’re working to create the best outcomes over the long-term.
+- GPUs, Kubernetes, Pytorch, or OS internals
+- Independently lead small research projects
+- Conduct research and implement solutions in areas such as model architecture, algorithms, data processing, and optimizer development
+- Design, run, and analyze scientific experiments to advance our understanding of large language models
+- Optimize and scale our training infrastructure to improve efficiency and reliability
+
+- Published work on hallucination prevention, factual grounding, or knowledge integration in language models
+- Experience with fact-grounding techniques
+- Background in developing confidence estimation or calibration methods for ML models
+- A track record of creating and maintaining factual knowledge bases
+- Familiarity with RLHF specifically applied to improving model truthfulness
+- Worked with crowd-sourcing platforms and human feedback collection systems
+- Experience developing evaluations of model accuracy or hallucinations
+- Have industry experience with language model finetuning and classifier training
+- Show proficiency in experimental design and statistical analysis for measuring improvements in calibration and accuracy
+- Care about AI safety and the accuracy and honesty of both current and future AI systems
+- Have experience in data science or the creation and curation of datasets for finetuning LLMs
+- An understanding of various metrics of uncertainty, calibration, and truthfulness in model outputs
+- demonstrable track record of success in delivering new features and products
+- Creating reliable, scalable, and high performance AI products
+- Knowledge of design or architecture (design patterns, reliability and scaling) of new and existing systems experience
+- development of techniques to minimize hallucinations and enhance truthfulness in language models
+- Design and implement novel data curation pipelines to identify, verify, and filter training data for accuracy given the model’s knowledge
+- Develop specialized classifiers to detect potential hallucinations or miscalibrated claims made by the mode
+- Create and maintain comprehensive honesty benchmarks and evaluation frameworks
+- Implement techniques to ground model outputs in verified information, such as search and retrieval-augmented generation (RAG) systems
+- Design and deploy human feedback collection specifically for identifying and correcting miscalibrated responses
+- Design and implement prompting pipelines to generate data that improves model accuracy and honesty
+- Develop and test novel RL environments that reward truthful outputs and penalize fabricated claims
+- Create tools to help human evaluators efficiently assess model outputs for accuracy
+- Design, develop, and maintain tokenization systems used across Pretraining and Finetuning workflows
+- Optimize encoding techniques to improve model training efficiency and performance
+- Collaborate closely with research teams to understand their evolving needs around data representation
+- Build infrastructure that enables researchers to experiment with novel tokenization approaches
+- Implement systems for monitoring and debugging tokenization-related issues in the model training pipeline
+- Create robust testing frameworks to validate tokenization systems across diverse languages and data types
+- Identify and address bottlenecks in data processing pipelines related to tokenization
+- Document systems thoroughly and communicate technical decisions clearly to stakeholders across teams 
+- Working with machine learning data processing pipelines
+- Building or optimizing data encodings for ML applications
+- Implementing or working with BPE, WordPiece, or other tokenization algorithms
+- Performance optimization of ML data processing systems
+- Multi-language tokenization challenges and solutions
+- Research environments where engineering directly enables scientific progress
+- Distributed systems and parallel computing for ML workflows
+- Large language models or other transformer-based architectures (not required) 
+- Profiling our reinforcement learning pipeline to find opportunities for improvement
+Building a system that regularly launches training jobs in a test environment so that we can quickly detect problems in the training pipeline
+Making changes to our finetuning systems so they work on new model architectures
+Building instrumentation to detect and eliminate Python GIL contention in our training code
+Diagnosing why training runs have started slowing down after some number of steps, and fixing it
+Implementing a stable, fast version of a new training algorithm proposed by a researcher
+
+Develop next-generation evaluation frameworks - Move beyond traditional benchmarks to create evaluations that capture real-world utility
+
+Create automated quality assessment pipelines - Build custom classifiers to continuously monitor RL transcripts for complex issues
+
+Build comprehensive training observability systems - Design and implement monitoring infrastructure to keep an eye on how model behaviors evolve throughout training.
+
+Bridge research and production - Partner with research teams to translate cutting-edge evaluation techniques into production-ready systems, and work with engineering teams to ensure our monitoring infrastructure scales with increasingly complex training workflows.
+
+
+
+##### Ideal working environment
+- Work from home, flexible working hours
+- Learning days and study days
+- Open sharing environment 
+
+
+
+
+#### Listings
+
+- [Research Engineer, Pre-training](https://job-boards.greenhouse.io/anthropic/jobs/4681526008)
+- [Anthropic - Machine Learning Systems Engineer, Research Tools](https://job-boards.greenhouse.io/anthropic/jobs/4952079008)
+- [Anthrophic - [Expression of Interest] Research Scientist/Engineer, Honesty](https://job-boards.greenhouse.io/anthropic/jobs/4532887008)
+- [Anthropic - Machine Learning Systems Engineer, RL Engineering](https://job-boards.greenhouse.io/anthropic/jobs/4952051008)
+- [Amazon - Software Development Engineer (ML), AGI Customization](https://www.amazon.jobs/en-gb/jobs/3102530/software-development-engineer-ml-agi-customization)
+- [Amazon - Sr. Research Engineer, Machine Learning, AGI Foundations](https://www.amazon.jobs/en-gb/jobs/3113050/sr-research-engineer-machine-learning-agi-foundations)
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FASMejN_5gs?si=ubOyj1Zwey6xvBgo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>

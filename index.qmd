@@ -1,0 +1,20 @@
+---
+title: ""
+page-layout: full
+listing:
+  type: grid
+  contents: topics
+  sort: "title asc"
+  # categories: true
+  image-align: "left"
+---
+
+I am a human named Charlotte who is studying to be an AI Engineer. 
+
+Here is where topics are organised and resources are shared for other humans that may also like to learn about AI
+
+Topics are added from Job descriptions I'd like to be qualified for, topics are added to overtime.
+
+
+
+

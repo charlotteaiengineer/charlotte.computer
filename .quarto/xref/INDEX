@@ -1,0 +1,68 @@
+{
+  "index.qmd": {
+    "index.html": "215cc92b"
+  },
+  "topics/perceptrons.ipynb": {
+    "perceptrons.html": "07f2809f"
+  },
+  "topics/universal-approximators.ipynb": {
+    "universal-approximators.html": "96abf401"
+  },
+  "topics/machine-learning.ipynb": {
+    "machine-learning.html": "77ac5afd"
+  },
+  "topics/tokenisation.ipynb": {
+    "tokenisation.html": "1d0d40c4"
+  },
+  "books.qmd": {
+    "books.html": "eb71c9c2"
+  },
+  "papers.qmd": {
+    "papers.html": "09532184"
+  },
+  "projects/index.qmd": {
+    "index.html": "95617ccd"
+  },
+  "quizzes.qmd": {
+    "quizzes.html": "3358b024"
+  },
+  "about.qmd": {
+    "about.html": "0940e242"
+  },
+  "resources.qmd": {
+    "resources.html": "d20aa0e7"
+  },
+  "courses.qmd": {
+    "courses.html": "6a1cc3be"
+  },
+  "blog/posts/2025-10-23-inpso.qmd": {
+    "2025-10-23-inpso.html": "a6b0d49c"
+  },
+  "blog/posts/2025-10-22-reality.qmd": {
+    "2025-10-22-reality.html": "2b7492b4"
+  },
+  "blog/posts/2025-10-21-brain.qmd": {
+    "2025-10-21-brain.html": "7791f7b1"
+  },
+  "blog/posts/2025-10-21-first-post.qmd": {
+    "2025-10-21-first-post.html": "e0eeb234"
+  },
+  "blog/posts/2025-11-01-dopamine.qmd": {
+    "2025-11-01-dopamine.html": "c5c1c882"
+  },
+  "blog/index.qmd": {
+    "index.html": "a1d0be29"
+  },
+  "topics/linear-regression.ipynb": {
+    "linear-regression.html": "48b6ceb4"
+  },
+  "topics/transformers.ipynb": {
+    "transformers.html": "dd99c6a7"
+  },
+  "topics/neural-network.ipynb": {
+    "neural-network.html": "81ae4409"
+  },
+  "topics/convolutional-nn.ipynb": {
+    "convolutional-nn.html": "f6044c16"
+  }
+}

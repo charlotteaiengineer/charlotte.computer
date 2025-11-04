@@ -1,0 +1,45 @@
+---
+title: "Resources"
+page-layout: full
+---
+
+Quick access to frequently used links. Add/edit freely.
+
+## Daily / Weekly
+- [Latent Space](https://www.latent.space/)
+
+- [Sam Altman's Blog](https://blog.samaltman.com/archive)
+- [News from Wes Roth](https://www.youtube.com/@WesRoth/videos)
+
+## LLMs / GenAI
+
+- [Andrej Karpathy's Youtube](https://www.youtube.com/@AndrejKarpathy)
+- [3 Blue 1 Brown Youtube](https://www.youtube.com/@3blue1brown)
+- [Hugging Face Youtube](https://www.youtube.com/@HuggingFace)
+
+## Python / Data
+
+-  [Tensorflow examples](https://github.com/tensorflow/tfjs-examples)
+
+## Model Training
+
+- [Natural Language Toolkit](https://www.nltk.org/)
+- [Spacy](https://spacy.io/)
+
+## Research & Learning
+
+
+- [arc prize](https://arcprize.org/) 
+
+## Tools & Platforms
+- [TensorFlow Playground](https://playground.tensorflow.org/#activation=tanh&batchSize=10&dataset=circle&regDataset=reg-plane&learningRate=0.03&regularizationRate=0&noise=0&networkShape=4,2&seed=0.44208&showTestData=false&discretize=false&percTrainData=50&x=true&y=true&xTimesY=false&xSquared=false&ySquared=false&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false)
+
+- [Run local AI models like gpt-oss, Qwen, Gemma, DeepSeek and many more on your computer, privately and for free](https://lmstudio.ai/)
+- [lmarena](https://lmarena.ai/leaderboard/text-to-image)
+- [Inference Playground](https://huggingface.co/spaces/huggingface/inference-playground)
+
+
+## Newsletters
+- [Latent Space](https://www.latent.space/)
+- [news.smol.ai](https://news.smol.ai/)
+

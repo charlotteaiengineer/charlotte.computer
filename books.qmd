@@ -1,0 +1,178 @@
+---
+title: ""
+format:
+  html:
+    toc: false
+---
+
+<style>
+.masonry-grid {
+  column-count: 2;
+  column-gap: 16px;
+}
+@media (min-width: 700px) {
+  .masonry-grid { column-count: 3; }
+}
+@media (min-width: 1100px) {
+  .masonry-grid { column-count: 4; }
+}
+.card {
+  break-inside: avoid;
+  display: block;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  margin: 0 0 16px;
+  color: inherit;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(0,0,0,0.08); }
+.card img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+.meta { padding: 12px 14px 14px; }
+.title-row { display:flex; align-items:center; justify-content: space-between; gap:8px; margin-bottom: 6px; }
+.title { font-weight: 700; font-size: 15px; line-height: 1.35; }
+.authors { font-size: 13px; color: rgba(0,0,0,0.65); }
+/* Status dot */
+.status-dot { width: 8px; height: 8px; border-radius: 50%; display:inline-block; flex: 0 0 8px; }
+.status-read { background:#43a047; }
+.status-inprogress { background:#fdd835; }
+.status-unread { background:#e53935; }
+/* Filters and empty state */
+.filters { display:flex; gap:8px; flex-wrap:wrap; margin: 0 0 10px; }
+.filter-btn { background:#fff; border:1px solid rgba(0,0,0,0.15); color:#333; padding:6px 12px; border-radius:20px; cursor:pointer; font-size:12px; font-weight:600; }
+.filter-btn.active { background:#111; color:#fff; border-color:#111; }
+.empty-state { text-align:center; color: rgba(0,0,0,0.6); padding: 20px 10px; }
+/* Status legend */
+.status-legend { position: fixed; top: 10px; right: 12px; gap: 20px; align-items: center; font-size: 12px; background: #fff; border: 1px solid rgba(0,0,0,0.1); border-radius: 999px; padding: 4px 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); z-index: 100; height: 30px; }
+.status-legend .status-dot { margin-right: 4px; }
+</style>
+
+
+
+
+
+<div class="status-legend" aria-label="Progress key">
+  <span class="status-dot status-unread"></span> Not started
+  <span class="status-dot status-inprogress" style="margin-left: 14px;"></span> In progress
+  <span class="status-dot status-read" style="margin-left: 14px;" ></span> Completed
+</div>
+
+<div id="books-filters" class="filters"></div>
+
+<div id="books-grid" class="masonry-grid"></div>
+<div id="books-empty" class="empty-state" style="display:none;">No items found.</div>
+
+<!-- books data externalized to data/books.json -->
+
+<script>
+(function(){
+  const grid = document.getElementById('books-grid');
+  // options hardcoded: aspect/cols/reset removed
+  const copyEl = document.getElementById('books-copy');
+  let items = [];
+  const emptyEl = document.getElementById('books-empty');
+  const filtersEl = document.getElementById('books-filters');
+  let activeCategory = 'all';
+
+  function thumbnailFromUrl(url) {
+    try {
+      const u = new URL(url);
+      if (u.hostname.includes('learning.oreilly.com')) {
+        // Expect path like /library/view/<slug>/<id>/ → use final numeric id
+        const parts = u.pathname.split('/').filter(Boolean);
+        const id = parts[parts.length - 1] || parts[parts.length - 2] || '';
+        if (id) return `https://learning.oreilly.com/covers/urn:orm:book:${id}/400w/`;
+      }
+    } catch (_) { /* ignore */ }
+    return 'https://via.placeholder.com/600x900?text=No+Image';
+  }
+
+  function cardHTML(d) {
+    const a = document.createElement('a');
+    a.className = 'card';
+    a.href = d.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    const statusInfo = (s) => {
+      if (!s) return null;
+      const key = String(s).toLowerCase();
+      if (key === 'read') return { cls: 'status-read', label: 'Read' };
+      if (key === 'in-progress' || key === 'inprogress') return { cls: 'status-inprogress', label: 'In progress' };
+      if (key === 'unread') return { cls: 'status-unread', label: 'Unread' };
+      return null;
+    };
+    const si = statusInfo(d.status);
+    const dot = si ? `<span class="status-dot ${si.cls}" title="${si.label}"></span>` : '';
+    const imgSrc = d.image || thumbnailFromUrl(d.url);
+    a.innerHTML = `
+      <img loading=\"lazy\" src=\"${imgSrc}\" alt=\"${d.title}\" style=\"width:100%;height:auto;\" onerror=\"this.onerror=null;this.src='https://via.placeholder.com/600x900?text=No+Image'\">
+      <div class="meta">
+        <div class="title-row"><div class="title">${d.title}</div>${dot}</div>
+        <div class="authors">${d.authors}</div>
+      </div>`;
+    return a;
+  }
+
+  function uniqueCategories() {
+    const set = new Set();
+    items.forEach(d => {
+      if (Array.isArray(d.categories)) d.categories.forEach(c => set.add(String(c)));
+      else if (d.category) set.add(String(d.category));
+      else if (Array.isArray(d.tags)) d.tags.forEach(t => set.add(String(t)));
+    });
+    return Array.from(set).sort((a,b)=>a.localeCompare(b));
+  }
+
+  function renderFilters() {
+    const cats = uniqueCategories();
+    filtersEl.innerHTML = '';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn' + (activeCategory === 'all' ? ' active' : '');
+    allBtn.textContent = 'All';
+    allBtn.addEventListener('click', () => { activeCategory = 'all'; renderFilters(); render(); });
+    filtersEl.appendChild(allBtn);
+    cats.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn' + (activeCategory === cat ? ' active' : '');
+      btn.textContent = cat;
+      btn.addEventListener('click', () => { activeCategory = cat; renderFilters(); render(); });
+      filtersEl.appendChild(btn);
+    });
+  }
+
+  function render() {
+    grid.innerHTML = '';
+    const visible = items.filter(d => {
+      if (activeCategory === 'all') return true;
+      if (Array.isArray(d.categories)) return d.categories.includes(activeCategory);
+      if (d.category) return String(d.category) === activeCategory;
+      if (Array.isArray(d.tags)) return d.tags.includes(activeCategory);
+      return false;
+    });
+    visible.forEach(d => grid.appendChild(cardHTML(d)));
+    emptyEl.style.display = visible.length ? 'none' : 'block';
+  }
+
+  // options hardcoded: removed listeners for aspect/cols/reset
+  if (copyEl) {
+    copyEl.addEventListener('click', () => {
+      navigator.clipboard.writeText(JSON.stringify(items, null, 2));
+    });
+  }
+
+  function init() {
+    fetch('data/books.json')
+      .then(r => r.json())
+      .then(json => { items = Array.isArray(json) ? json : []; renderFilters(); render(); })
+      .catch(() => { items = []; renderFilters(); render(); });
+  }
+
+  init();
+})();
+</script>
+
+

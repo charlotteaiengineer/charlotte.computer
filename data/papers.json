@@ -1,0 +1,16 @@
+[
+  {
+    "title": "Attention Is All You Need",
+    "authors": "Vaswani et al.",
+    "url": "https://arxiv.org/abs/1706.03762",
+    "status": "unread",
+    "categories": ["transformers", "nlp"]
+  },
+  {
+    "title": "Self-Tuning: Instructing LLMs to Effectively Acquire New Knowledge through Self-Teaching",
+    "authors": "Xiaoying Zhang, Baolin Peng, Ye Tian, Jingyan Zhou, Yipeng Zhang, Haitao Mi, Helen Meng",
+    "url": "https://arxiv.org/pdf/2406.06326",
+    "status": "in-progress",
+    "categories": ["llm", "knowledge-acquisition", "self-teaching"]
+  }
+]

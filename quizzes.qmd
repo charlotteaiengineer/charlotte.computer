@@ -1,0 +1,114 @@
+---
+title: "Quizzes"
+format:
+  html:
+    toc: false
+---
+
+<style>
+/* List layout (quizzes) */
+.list { display: block; }
+.list-item {
+  display: block;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  padding: 12px 14px;
+  margin: 0 0 10px;
+  color: inherit;
+  text-decoration: none;
+}
+.list-item:hover { background: #fafafa; }
+.title-row { display:flex; align-items:center; gap:8px; justify-content: space-between; }
+.title { font-weight: 700; font-size: 15px; line-height: 1.35; }
+.authors { font-size: 13px; color: rgba(0,0,0,0.65); margin-top: 4px; }
+/* Score badge */
+.score-badge { background:#111; color:#fff; border-radius: 999px; padding: 2px 8px; font-size: 12px; font-weight: 700; line-height: 1; }
+/* Filters and empty state */
+.filters { display:flex; gap:8px; flex-wrap:wrap; margin: 0 0 10px; }
+.filter-btn { background:#fff; border:1px solid rgba(0,0,0,0.15); color:#333; padding:6px 12px; border-radius:20px; cursor:pointer; font-size:12px; font-weight:600; }
+.filter-btn.active { background:#111; color:#fff; border-color:#111; }
+.empty-state { text-align:center; color: rgba(0,0,0,0.6); padding: 20px 10px; }
+/* (no legend for scores) */
+</style>
+
+
+
+<div id="quizzes-filters" class="filters"></div>
+
+<div id="quizzes-list" class="list"></div>
+<div id="quizzes-empty" class="empty-state" style="display:none;">No items found.</div>
+
+<!-- quizzes data externalized to data/quizzes.json -->
+
+<script>
+(function(){
+  const list = document.getElementById('quizzes-list');
+  const filtersEl = document.getElementById('quizzes-filters');
+  const emptyEl = document.getElementById('quizzes-empty');
+  let items = [];
+  let activeCategory = 'all';
+
+  function rowHTML(d) {
+    const a = document.createElement('a');
+    a.className = 'list-item';
+    a.href = d.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+    const score = d.score ? `<span class="score-badge" title="Score">${d.score}</span>` : '';
+    a.innerHTML = `
+      <div class="title-row"><div class="title">${d.title}</div>${score}</div>
+      <div class="authors">${d.authors || 'Quiz'}</div>`;
+    return a;
+  }
+
+  function uniqueCategories() {
+    const set = new Set();
+    items.forEach(d => {
+      if (Array.isArray(d.categories)) d.categories.forEach(c => set.add(String(c)));
+      else if (d.category) set.add(String(d.category));
+      else if (Array.isArray(d.tags)) d.tags.forEach(t => set.add(String(t)));
+    });
+    return Array.from(set).sort((a,b)=>a.localeCompare(b));
+  }
+
+  function renderFilters() {
+    const cats = uniqueCategories();
+    filtersEl.innerHTML = '';
+    const allBtn = document.createElement('button');
+    allBtn.className = 'filter-btn' + (activeCategory === 'all' ? ' active' : '');
+    allBtn.textContent = 'All';
+    allBtn.addEventListener('click', () => { activeCategory = 'all'; renderFilters(); render(); });
+    filtersEl.appendChild(allBtn);
+    cats.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'filter-btn' + (activeCategory === cat ? ' active' : '');
+      btn.textContent = cat;
+      btn.addEventListener('click', () => { activeCategory = cat; renderFilters(); render(); });
+      filtersEl.appendChild(btn);
+    });
+  }
+
+  function render() {
+    list.innerHTML = '';
+    const visible = items.filter(d => {
+      if (activeCategory === 'all') return true;
+      if (Array.isArray(d.categories)) return d.categories.includes(activeCategory);
+      if (d.category) return String(d.category) === activeCategory;
+      if (Array.isArray(d.tags)) return d.tags.includes(activeCategory);
+      return false;
+    });
+    visible.forEach(d => list.appendChild(rowHTML(d)));
+    emptyEl.style.display = visible.length ? 'none' : 'block';
+  }
+
+  function init() {
+    fetch('data/quizzes.json')
+      .then(r => r.json())
+      .then(json => { items = Array.isArray(json) ? json : []; renderFilters(); render(); })
+      .catch(() => { items = []; renderFilters(); render(); });
+  }
+
+  init();
+})();
+</script>
+
+
