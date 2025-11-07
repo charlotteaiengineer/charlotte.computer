@@ -30,7 +30,7 @@ website:
       # - text: Projects
       #   href: projects/index.qmd
     sidebar:
-    style: "docked"
+    # style: "docked"
     search: true
 
 format:

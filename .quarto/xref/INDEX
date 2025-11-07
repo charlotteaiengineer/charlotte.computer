@@ -64,5 +64,26 @@
   },
   "topics/convolutional-nn.ipynb": {
     "convolutional-nn.html": "f6044c16"
+  },
+  "topics/pretraining.ipynb": {
+    "pretraining.html": "ba28b2f4"
+  },
+  "topics/activation-functions.ipynb": {
+    "activation-functions.html": "73b4bae8"
+  },
+  "topics/tokenization.ipynb": {
+    "tokenization.html": "76df97d5"
+  },
+  "tools/youtube_transcripts.ipynb": {
+    "youtube_transcripts.html": "80465d8c"
+  },
+  "quizzes/tokenization-flash-cards.qmd": {
+    "tokenization-flash-cards.html": "427d44f7"
+  },
+  "quizzes/giving-computers-the-ability-to-learn-from-data-flashcards.qmd": {
+    "giving-computers-the-ability-to-learn-from-data-flashcards.html": "d6610d3e"
+  },
+  "quizzes/neural-networks-overview-practice-test.qmd": {
+    "neural-networks-overview-practice-test.html": "3366c6e8"
   }
 }

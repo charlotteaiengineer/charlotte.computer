@@ -4,13 +4,17 @@
       "."
     ],
     "index.qmd": [
-      "topics"
+      "topics",
+      "quizzes"
     ],
     "blog/index.qmd": [
       "B3049D40"
     ],
     "about.qmd": [
       "blog"
+    ],
+    "quizzes.qmd": [
+      "quizzes"
     ]
   }
 }

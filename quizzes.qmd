@@ -3,6 +3,7 @@ title: "Quizzes"
 format:
   html:
     toc: false
+    filter-ui: true
 ---
 
 <style>

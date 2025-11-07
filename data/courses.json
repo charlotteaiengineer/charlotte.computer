@@ -158,5 +158,12 @@
     "url": "https://developers.google.com/learn/pathways/tensorflow",
     "status": "not-started",
     "categories": ["tensorflow", "machine-learning", "google"]
+  },
+  {
+    "title": "YouTube Playlist PLtBw6njQRU-rwp5__7C0oIVt26ZgjG9NI",
+    "authors": "YouTube",
+    "url": "https://www.youtube.com/watch?v=alfdI7S6wCY&list=PLtBw6njQRU-rwp5__7C0oIVt26ZgjG9NI",
+    "status": "in-progress",
+    "categories": ["youtube"]
   }
 ]

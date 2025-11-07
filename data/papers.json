@@ -12,5 +12,19 @@
     "url": "https://arxiv.org/pdf/2406.06326",
     "status": "in-progress",
     "categories": ["llm", "knowledge-acquisition", "self-teaching"]
+  },
+  {
+    "title": "Language Models are Unsupervised Multitask Learners",
+    "authors": "Alec Radford, Jeff Wu, Rewon Child, David Luan, Dario Amodei, Ilya Sutskever",
+    "url": "https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf",
+    "status": "unread",
+    "categories": ["language-models", "unsupervised", "multitask", "openai"]
+  },
+  {
+    "title": "MegaByte: Predicting Million-byte Sequences with Multiscale Transformers",
+    "authors": "Lili Yu, Dániel Simig, Colin Flaherty, Armen Aghajanyan, Luke Zettlemoyer, Mike Lewis",
+    "url": "https://arxiv.org/pdf/2305.07185",
+    "status": "unread",
+    "categories": ["transformers", "long-sequence", "byte-level"]
   }
 ]

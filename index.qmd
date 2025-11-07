@@ -5,7 +5,7 @@ listing:
   type: grid
   contents: topics
   sort: "title asc"
-  # categories: true
+  categories: true
   image-align: "left"
 ---
 

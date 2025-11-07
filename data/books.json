@@ -1,5 +1,12 @@
 [
   {
+    "title": "Mathematics of Machine Learning",
+    "authors": "Tivadar Danka",
+    "url": "https://learning.oreilly.com/library/view/mathematics-of-machine/9781837027873/",
+    "status": "not-started",
+    "categories": ["mathematics", "machine-learning"]
+  },
+  {
     "title": "AI Engineering",
     "authors": "Chip Huyen",
     "url": "https://learning.oreilly.com/library/view/ai-engineering/9781098166298/",
@@ -112,13 +119,7 @@
     "status": "unread",
     "categories": ["python"]
   },
-  {
-    "title": "Mathematics of Machine Learning",
-    "authors": "Tivadar Danka",
-    "url": "https://learning.oreilly.com/library/view/mathematics-of-machine/9781837027873/",
-    "status": "not-started",
-    "categories": ["mathematics", "machine-learning"]
-  },
+
   {
     "title": "Machine Learning with PyTorch and Scikit-Learn",
     "authors": "Sebastian Raschka, Yuxi (Hayden) Liu, Vahid Mirjalili",
@@ -146,5 +147,26 @@
     "url": "https://learning.oreilly.com/library/view/ai-systems-performance/9798341627772/",
     "status": "unread",
     "categories": ["ml-systems", "performance", "gpu"]
+  },
+  {
+    "title": "Building Applications with AI Agents",
+    "authors": "Michael Albada",
+    "url": "https://learning.oreilly.com/library/view/building-applications-with/9781098176495/",
+    "status": "unread",
+    "categories": ["agents", "llm"]
+  },
+  {
+    "title": "AI Agents: The Definitive Guide",
+    "authors": "Nicole Koenigstein",
+    "url": "https://learning.oreilly.com/library/view/ai-agents-the/0642572247775/",
+    "status": "unread",
+    "categories": ["agents", "llm"]
+  },
+  {
+    "title": "Transformers: The Definitive Guide",
+    "authors": "Nicole Koenigstein",
+    "url": "https://learning.oreilly.com/library/view/transformers-the-definitive/9781098167004/",
+    "status": "unread",
+    "categories": ["transformers", "llm", "deep-learning"]
   }
 ]
