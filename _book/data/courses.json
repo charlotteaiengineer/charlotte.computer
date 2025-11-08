@@ -1,0 +1,169 @@
+[
+  {
+    "title": "Neural Networks: Zero to Hero",
+    "authors": "Andrej Karpathy",
+    "url": "https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ",
+    "status": "not-started",
+    "categories": ["backpropagation"]
+  },
+  {
+    "title": "Harvard CS50’s Artificial Intelligence with Python – Full University Course",
+    "authors": "Harvard University",
+    "url": "https://www.youtube.com/watch?v=5NgNicANyqM",
+    "status": "not-started",
+    "categories": ["python"]
+  },
+  {
+    "title": "Generative AI Full Course – Gemini Pro, OpenAI, Llama, Langchain, Pinecone, Vector Databases & More",
+    "authors": "Krish Naik, Sunny Savita, and Boktiar Ahmed Bappy",
+    "url": "https://www.youtube.com/watch?v=mEsleV16qdo",
+    "status": "not-started",
+    "categories": ["python"]
+  },
+  {
+    "title": "CMU Fall 2023 Multimodal Machine Learning course",
+    "authors": "Louis-Philippe Morency",
+    "url": "https://www.youtube.com/watch?v=DPkwjgaRvyI&list=PL-Fhd_vrvisMYs8A5j7sj8YW1wHhoJSmW&index=1",
+    "status": "not-started",
+    "categories": ["machine-learning"]
+  },
+  {
+    "title": "[Full Workshop] Reinforcement Learning, Kernels, Reasoning, Quantization & Agents",
+    "authors": "Daniel Han",
+    "url": "https://www.youtube.com/watch?v=OkEGJ5G3foU",
+    "status": "not-started",
+    "categories": ["llm"]
+  },
+  {
+    "title": "LLM Fine Tuning Crash Course | LLM Fine Tuning Tutorial",
+    "authors": "codebasics",
+    "url": "https://www.youtube.com/watch?v=IIvORO248Zs",
+    "status": "not-started",
+    "categories": ["fine-tuning"]
+  },
+  {
+    "title": "Python Fundamentals with Paul Deitel, 2nd Edition",
+    "authors": "Paul Deitel",
+    "url": "https://learning.oreilly.com/course/python-fundamentals-with/9780135917411/",
+    "status": "in-progress",
+    "categories": ["python"]
+  },
+  {
+    "title": "Open Source AI with Python & Hugging Face",
+    "authors": "Steve Kinney",
+    "url": "https://frontendmasters.com/courses/python-ai/",
+    "status": "not-started",
+    "image": "https://static.frontendmasters.com/assets/courses/2025-08-22-python-ai/posterframe.webp",
+    "categories": ["python", "ai", "hugging-face"]
+  },
+  {
+    "title": "Build an AI Agent from Scratch",
+    "authors": "Scott Moss",
+    "url": "https://frontendmasters.com/courses/ai-agents/",
+    "status": "not-started",
+    "image": "https://static.frontendmasters.com/assets/courses/2024-12-10-ai-agents/posterframe.webp",
+    "categories": ["ai", "agents"]
+  },
+  {
+    "title": "Hard Parts of AI: Neural Networks",
+    "authors": "Will Sentance",
+    "url": "https://frontendmasters.com/courses/hard-parts-ai/",
+    "status": "not-started",
+    "image": "https://static.frontendmasters.com/assets/courses/2025-01-17-hard-parts-ai/posterframe.webp",
+    "categories": ["ai", "neural-networks"]
+  },
+  {
+    "title": "Deep Learning Fundamentals: A Python-Based Course",
+    "authors": "Julián Darío Miranda",
+    "url": "https://learning.oreilly.com/course/deep-learning-fundamentals/0636920928324/",
+    "status": "not-started",
+    "categories": ["deep-learning", "python"]
+  },
+  {
+    "title": "Programming Generative AI",
+    "authors": "Jonathan Dinu",
+    "url": "https://learning.oreilly.com/course/programming-generative-ai/9780135381090/",
+    "status": "not-started",
+    "categories": ["generative-ai"]
+  },
+  {
+    "title": "Deep Learning - Convolutional Neural Networks with TensorFlow",
+    "authors": "Lazy Programmer",
+    "url": "https://learning.oreilly.com/course/deep-learning-/9781801076272/",
+    "status": "not-started",
+    "categories": ["deep-learning", "cnn", "tensorflow"]
+  },
+  {
+    "title": "AI Engineering Masterclass: From Zero to AI Hero",
+    "authors": "Vivian Aranha",
+    "url": "https://learning.oreilly.com/course/ai-engineering-masterclass/9781806105991/",
+    "status": "not-started",
+    "categories": ["ai-engineering"]
+  },
+  {
+    "title": "The Complete Guide to Azure Machine Learning - 2025 Edition",
+    "authors": "Anand Rao Nednur",
+    "url": "https://learning.oreilly.com/course/the-complete-guide/9781806108619/",
+    "status": "not-started",
+    "categories": ["azure-ml", "machine-learning", "mlops"]
+  },
+  {
+    "title": "AI Demystified - A Simple Guide for Newcomers",
+    "authors": "Alexander Oni",
+    "url": "https://learning.oreilly.com/course/ai-demystified-/9781806117574/",
+    "status": "not-started",
+    "categories": ["ai", "beginner"]
+  },
+  {
+    "title": "Natural Language Processing - Deep Learning Models in Python",
+    "authors": "Lazy Programmer",
+    "url": "https://learning.oreilly.com/course/natural-language-processing/9781836208013/",
+    "status": "not-started",
+    "categories": ["nlp", "deep-learning", "python"]
+  },
+  {
+    "title": "A Practical Guide to Machine Learning with TensorFlow 2.0 & Keras",
+    "authors": "Vadim Karpusenko",
+    "url": "https://frontendmasters.com/courses/practical-machine-learning/",
+    "status": "in-progress",
+    "image": "https://static.frontendmasters.com/assets/courses/2020-03-03-practical-machine-learning/posterframe.webp",
+    "categories": ["machine-learning", "tensorflow", "keras"]
+  },
+  {
+    "title": "Intermediate Python",
+    "authors": "Nina Zakharenko",
+    "url": "https://frontendmasters.com/courses/intermediate-python/",
+    "status": "completed",
+    "image": "https://static.frontendmasters.com/assets/courses/2019-05-01-intermediate-python/posterframe.webp",
+    "categories": ["python"]
+  },
+  {
+    "title": "Practical Guide to Python",
+    "authors": "Nina Zakharenko",
+    "url": "https://frontendmasters.com/courses/practical-python/",
+    "status": "completed",
+    "image": "https://static.frontendmasters.com/assets/courses/2020-12-22-practical-python/posterframe.webp",
+    "categories": ["python"]
+  },
+  {
+    "title": "CMU Spring 2025 - Lectures | Neural Networks",
+    "authors": "Bhiksha Raj",
+    "url": "https://www.youtube.com/watch?v=NXYrIEP1LRs&list=PLp-0K3kfddPylfHM6O3cBkRGdSW3m6n1C&index=1",
+    "status": "in-progress",
+    "categories": ["neural-networks", "youtube"]
+  },
+  {
+    "title": "Program neural networks with TensorFlow",
+    "authors": "Google Developers",
+    "url": "https://developers.google.com/learn/pathways/tensorflow",
+    "status": "not-started",
+    "categories": ["tensorflow", "machine-learning", "google"]
+  },
+  {
+    "title": "YouTube Playlist PLtBw6njQRU-rwp5__7C0oIVt26ZgjG9NI",
+    "authors": "YouTube",
+    "url": "https://www.youtube.com/watch?v=alfdI7S6wCY&list=PLtBw6njQRU-rwp5__7C0oIVt26ZgjG9NI",
+    "status": "in-progress",
+    "categories": ["youtube"]
+  }
+]

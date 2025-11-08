@@ -5,16 +5,18 @@
     ],
     "index.qmd": [
       "topics",
-      "quizzes"
+      "topics, blogs",
+      "topics/*.ipynb",
+      "papers/*.qmd",
+      "blog/*.qmd",
+      "blog/posts/*.qmd",
+      "books.qmd"
     ],
     "blog/index.qmd": [
       "B3049D40"
     ],
     "about.qmd": [
       "blog"
-    ],
-    "quizzes.qmd": [
-      "quizzes"
     ]
   }
 }

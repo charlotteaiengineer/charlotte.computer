@@ -1,7 +1,4 @@
----
-title: "Resources"
-page-layout: full
----
+# Resources {.unnumbered}
 
 Quick access to frequently used links. Add/edit freely.
 
@@ -25,6 +22,8 @@ Quick access to frequently used links. Add/edit freely.
 
 - [Natural Language Toolkit](https://www.nltk.org/)
 - [Spacy](https://spacy.io/)
+
+- [Tools-to-Design-or-Visualize-Architecture-of-Neural-Network](https://github.com/ashishpatel26/Tools-to-Design-or-Visualize-Architecture-of-Neural-Network?tab=readme-ov-file)
 
 ## Research & Learning
 

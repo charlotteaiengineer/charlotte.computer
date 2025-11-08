@@ -85,5 +85,14 @@
   },
   "quizzes/neural-networks-overview-practice-test.qmd": {
     "neural-networks-overview-practice-test.html": "3366c6e8"
+  },
+  "blog/posts/2025-11-08-gein.qmd": {
+    "2025-11-08-gein.html": "cfae7458"
+  },
+  "topics/convolutional-neural-networks.ipynb": {
+    "convolutional-neural-networks.html": "ce2e33fe"
+  },
+  "datasets.qmd": {
+    "datasets.html": "bba44e49"
   }
 }

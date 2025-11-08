@@ -1,0 +1,172 @@
+[
+  {
+    "title": "Mathematics of Machine Learning",
+    "authors": "Tivadar Danka",
+    "url": "https://learning.oreilly.com/library/view/mathematics-of-machine/9781837027873/",
+    "status": "not-started",
+    "categories": ["mathematics", "machine-learning"]
+  },
+  {
+    "title": "AI Engineering",
+    "authors": "Chip Huyen",
+    "url": "https://learning.oreilly.com/library/view/ai-engineering/9781098166298/",
+    "status": "in-progress",
+    "categories": ["deep-learning", "llm"]
+  },
+  {
+    "title": "Learn AI-Assisted Python Programming, Second Edition",
+    "authors": "Leo Porter, Daniel Zingaro",
+    "url": "https://learning.oreilly.com/library/view/learn-ai-assisted-python/9781633435995/",
+    "status": "unread",
+    "categories": ["python", "ai"]
+  },
+  {
+    "title": "Hands-On Machine Learning with Scikit-Learn and PyTorch",
+    "authors": "Aurélien Géron",
+    "url": "https://learning.oreilly.com/library/view/hands-on-machine-learning/9798341607972/",
+    "status": "unread",
+    "categories": ["machine-learning", "pytorch", "scikit-learn"]
+  },
+  {
+    "title": "Generative AI with Python and PyTorch - Second Edition",
+    "authors": "Joseph Babcock, Raghav Bali",
+    "url": "https://learning.oreilly.com/library/view/generative-ai-with/9781835884447/",
+    "status": "in-progress",
+    "categories": ["generative-ai", "pytorch"]
+  },
+  {
+    "title": "Designing Machine Learning Systems",
+    "authors": "Chip Huyen",
+    "url": "https://learning.oreilly.com/library/view/designing-machine-learning/9781098107956/",
+    "status": "unread",
+    "categories": ["ml-systems", "mlops"]
+  },
+  {
+    "title": "Build a Large Language Model (From Scratch)",
+    "authors": "Sebastian Raschka",
+    "url": "https://learning.oreilly.com/library/view/build-a-large/9781633437166/",
+    "status": "unread",
+    "categories": ["llm", "python"]
+  },
+  {
+    "title": "Generative AI Design Patterns",
+    "authors": "Valliappa Lakshmanan, Hannes Hapke",
+    "url": "https://learning.oreilly.com/library/view/generative-ai-design/9798341622654/",
+    "status": "unread",
+    "categories": ["generative-ai", "design-patterns"]
+  },
+  {
+    "title": "The LLM Engineer's Handbook",
+    "authors": "Paul Iusztin, Maxime Labonne",
+    "url": "https://learning.oreilly.com/library/view/llm-engineers-handbook/9781836200079/",
+    "status": "unread",
+    "categories": ["llm", "engineering"]
+  },
+  {
+    "title": "Deep Learning with Python",
+    "authors": "François Chollet",
+    "url": "https://learning.oreilly.com/library/view/deep-learning-with/9781617294433/",
+    "status": "unread",
+    "categories": ["deep-learning", "keras", "python"]
+  },
+  {
+    "title": "Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 3rd Edition",
+    "authors": "Aurélien Géron",
+    "url": "https://learning.oreilly.com/library/view/hands-on-machine-learning/9781098125967/",
+    "status": "unread",
+    "categories": ["machine-learning", "scikit-learn", "keras", "tensorflow"]
+  },
+  {
+    "title": "Hands-On Neural Networks with TensorFlow 2.0",
+    "authors": "Paolo Galeone",
+    "url": "https://learning.oreilly.com/library/view/hands-on-neural-networks/9781789615555/",
+    "status": "unread",
+    "categories": ["neural-networks", "tensorflow", "tf2"]
+  },
+  {
+    "title": "Hands-On Convolutional Neural Networks with TensorFlow",
+    "authors": "Iffat Zafar, Giounona Tzanidou, Richard Burton, Nimesh Patel, Leonardo Araujo",
+    "url": "https://learning.oreilly.com/library/view/hands-on-convolutional-neural/9781789130331/",
+    "status": "unread",
+    "categories": ["cnn", "tensorflow"]
+  },
+  {
+    "title": "Advanced Applied Deep Learning: Convolutional Neural Networks and Object Detection",
+    "authors": "Umberto Michelucci",
+    "url": "https://learning.oreilly.com/library/view/advanced-applied-deep/9781484249765/",
+    "status": "unread",
+    "categories": ["deep-learning", "cnn", "object-detection"]
+  },
+
+  {
+    "title": "Practical Deep Learning for Coders",
+    "authors": "Jeremy Howard",
+    "url": "https://course.fast.ai/",
+    "status": "unread",
+    "categories": ["deep-learning", "cnn", "object-detection"]
+  },
+  {
+    "title": "Python Documentation Tutorial",
+    "authors": "Python Software Foundation",
+    "url": "https://docs.python.org/3.9/tutorial/",
+    "status": "unread",
+    "categories": ["python"]
+  },
+  {
+    "title": "PEP 8 — the Style Guide for Python Code",
+    "authors": "Kenneth Reitz ",
+    "url": "https://pep8.org/#introduction",
+    "status": "unread",
+    "categories": ["python"]
+  },
+
+  {
+    "title": "Machine Learning with PyTorch and Scikit-Learn",
+    "authors": "Sebastian Raschka, Yuxi (Hayden) Liu, Vahid Mirjalili",
+    "url": "https://learning.oreilly.com/library/view/machine-learning-with/9781801819312/",
+    "status": "unread",
+    "categories": ["machine-learning", "pytorch", "scikit-learn"]
+  },
+  {
+    "title": "Designing Data-Intensive Applications, 2nd Edition",
+    "authors": "Martin Kleppmann, Chris Riccomini",
+    "url": "https://learning.oreilly.com/library/view/designing-data-intensive-applications/9781098119058/",
+    "status": "unread",
+    "categories": ["data-engineering", "distributed-systems", "architecture"]
+  },
+  {
+    "title": "Grokking Machine Learning",
+    "authors": "Luis Serrano",
+    "url": "https://learning.oreilly.com/library/view/grokking-machine-learning/9781617295911/",
+    "status": "not-started",
+    "categories": ["machine-learning"]
+  },
+  {
+    "title": "AI Systems Performance Engineering",
+    "authors": "Chris Fregly",
+    "url": "https://learning.oreilly.com/library/view/ai-systems-performance/9798341627772/",
+    "status": "unread",
+    "categories": ["ml-systems", "performance", "gpu"]
+  },
+  {
+    "title": "Building Applications with AI Agents",
+    "authors": "Michael Albada",
+    "url": "https://learning.oreilly.com/library/view/building-applications-with/9781098176495/",
+    "status": "unread",
+    "categories": ["agents", "llm"]
+  },
+  {
+    "title": "AI Agents: The Definitive Guide",
+    "authors": "Nicole Koenigstein",
+    "url": "https://learning.oreilly.com/library/view/ai-agents-the/0642572247775/",
+    "status": "unread",
+    "categories": ["agents", "llm"]
+  },
+  {
+    "title": "Transformers: The Definitive Guide",
+    "authors": "Nicole Koenigstein",
+    "url": "https://learning.oreilly.com/library/view/transformers-the-definitive/9781098167004/",
+    "status": "unread",
+    "categories": ["transformers", "llm", "deep-learning"]
+  }
+]

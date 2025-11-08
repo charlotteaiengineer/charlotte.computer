@@ -1,0 +1,22 @@
+---
+title: "Ed Gein, trauma and the brain"
+description: "Thoughts after watching 'Monster: The Ed Gein Story'"
+date: 2025-11-08
+categories: []
+# image: 
+---
+
+**Unresearched theory**: The human brain learns overtime through a similar mechanism to Backpropagation in Neural Networks, tweaking weights with each new experience. NEw perspectives in real time tweak weights. 
+
+Learning rate is perhaps tied to IQ, generally can be influenced by drugs, caffeine and alcohol for better or worse. 
+
+Magic mushrooms appear to have substantial affect; it *feels* like a rewiring of the brain. In other words - turning the brain into a malleable state and coming out of the experience changed (with new weights relayed into the system)
+
+Trauma - specifically the extreme type during early development (we can take Ed Gein's tragic case for example) COULD be a catastrophic change of the system as a whole. Where we take the idea of usual learning rate, this event could be a huge learning rate change, which would force the system out of the current local minima into an entriely new one.
+
+![](https://developer-blogs.nvidia.com/wp-content/uploads/2022/02/DS-Guide-to-Gradient-Descent_Pic5.gif)
+
+The brain during trauma gears itself up to predict the traumatic event happening again, but the next time it would be prepared - basic survival mechanism. The weights and connections have been formed around the event, cemented into the system. 
+
+The person now has a new configuration of the brain, a new global minima formed.
+

@@ -1,11 +1,15 @@
 ---
-title: ""
+title: "Introduction"
 page-layout: full
 listing:
   type: grid
-  contents: topics
+  contents:
+    - "topics/*.ipynb"
+    # - "books.qmd"
+    # - "blog/posts/*.qmd"
   sort: "title asc"
   categories: true
+  fields: [title, image]
   image-align: "left"
 ---
 

@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Tokenization – charlotte.computer</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../topics/linear-regression.html" rel="next">
+<link href="../topics/convolutional-neural-networks.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-27c261d06b905028a18691de25d09dde.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../topics/tokenization.html">Tokenization</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">charlotte.computer</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/perceptrons.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Perceptrons</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/convolutional-neural-networks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Convolutional Neural Networks</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/tokenization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Tokenization</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../topics/linear-regression.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Regression</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../books.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Books</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../papers.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Papers</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../courses.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Courses</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Resources</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../datasets.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Datasets</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#byte-pair-encoding-algorithm" id="toc-byte-pair-encoding-algorithm" class="nav-link active" data-scroll-target="#byte-pair-encoding-algorithm">Byte-Pair Encoding Algorithm</a>
+  <ul class="collapse">
+  <li><a href="#decoding" id="toc-decoding" class="nav-link" data-scroll-target="#decoding">Decoding</a></li>
+  <li><a href="#encoding" id="toc-encoding" class="nav-link" data-scroll-target="#encoding">Encoding</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tokenization</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">tokenization</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/zduSFxRajkE?si=7U1IDwsVn20kq2Xe" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
+</iframe>
+<p>Here is a live Tokenizer called <a href="https://tiktokenizer.vercel.app/">Tiktokenizer</a></p>
+<blockquote class="blockquote">
+<p>Tokens are the fundemantal unit, the “atom” of Large Language Models (LLMs). Tokenization is the process of translating strings (i.e.&nbsp;text) and converting them into sequences of tokens and vice versa.</p>
+</blockquote>
+<div id="6b450509" class="cell" data-execution_count="83">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> <span class="st">"The scaling up of AI models has two major consequences. First, AI models are becoming more powerful and capable of more tasks, enabling more applications. More people and teams leverage AI to increase productivity, create economic value, and improve quality of life. Second, training large language models (LLMs) requires data, compute resources, and specialized talent that only a few organizations can afford. This has led to the emergence of model as a service: models developed by these few organizations are made available for others to use as a service. Anyone who wishes to leverage AI to build applications can now use these models to do so without having to invest up front in building a model. In short, the demand for AI applications has increased while the barrier to entry for building AI applications has decreased. This has turned AI engineering—the process of building applications on top of readily available models—into one of the fastest-growing engineering disciplines. Building applications on top of machine learning (ML) models isn’t new. Long before LLMs became prominent, AI was already powering many applications, including product recommendations, fraud detection, and churn prediction. While many principles of productionizing AI applications remain the same, the new generation of large-scale, readily available models brings about new possibilities and new challenges, which are the focus of this book. This chapter begins with an overview of foundation models, the key catalyst behind the explosion of AI engineering. I’ll then discuss a range of successful AI use cases, each illustrating what AI is good and not yet good at. As AI’s capabilities expand daily, predicting its future possibilities becomes increasingly challenging. However, existing application patterns can help uncover opportunities today and offer clues about how AI may continue to be used in the future. To close out the chapter, I’ll provide an overview of the new AI stack, including what has changed with foundation models, what remains the same, and how the role of an AI engineer today differs from that of a traditional ML engineer."</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tokens <span class="op">=</span> text.encode(<span class="st">'utf-8'</span>) <span class="co"># raw bytes</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tokens <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>, tokens)) <span class="co"># convert to a list of integers 0-255</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"---"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(text)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"length of text:"</span>, <span class="bu">len</span>(text))</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"---"</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tokens)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"length of tokens:"</span>, <span class="bu">len</span>(tokens))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>---
+The scaling up of AI models has two major consequences. First, AI models are becoming more powerful and capable of more tasks, enabling more applications. More people and teams leverage AI to increase productivity, create economic value, and improve quality of life. Second, training large language models (LLMs) requires data, compute resources, and specialized talent that only a few organizations can afford. This has led to the emergence of model as a service: models developed by these few organizations are made available for others to use as a service. Anyone who wishes to leverage AI to build applications can now use these models to do so without having to invest up front in building a model. In short, the demand for AI applications has increased while the barrier to entry for building AI applications has decreased. This has turned AI engineering—the process of building applications on top of readily available models—into one of the fastest-growing engineering disciplines. Building applications on top of machine learning (ML) models isn’t new. Long before LLMs became prominent, AI was already powering many applications, including product recommendations, fraud detection, and churn prediction. While many principles of productionizing AI applications remain the same, the new generation of large-scale, readily available models brings about new possibilities and new challenges, which are the focus of this book. This chapter begins with an overview of foundation models, the key catalyst behind the explosion of AI engineering. I’ll then discuss a range of successful AI use cases, each illustrating what AI is good and not yet good at. As AI’s capabilities expand daily, predicting its future possibilities becomes increasingly challenging. However, existing application patterns can help uncover opportunities today and offer clues about how AI may continue to be used in the future. To close out the chapter, I’ll provide an overview of the new AI stack, including what has changed with foundation models, what remains the same, and how the role of an AI engineer today differs from that of a traditional ML engineer.
+length of text: 2141
+---
+[84, 104, 101, 32, 115, 99, 97, 108, 105, 110, 103, 32, 117, 112, 32, 111, 102, 32, 65, 73, 32, 109, 111, 100, 101, 108, 115, 32, 104, 97, 115, 32, 116, 119, 111, 32, 109, 97, 106, 111, 114, 32, 99, 111, 110, 115, 101, 113, 117, 101, 110, 99, 101, 115, 46, 32, 70, 105, 114, 115, 116, 44, 32, 65, 73, 32, 109, 111, 100, 101, 108, 115, 32, 97, 114, 101, 32, 98, 101, 99, 111, 109, 105, 110, 103, 32, 109, 111, 114, 101, 32, 112, 111, 119, 101, 114, 102, 117, 108, 32, 97, 110, 100, 32, 99, 97, 112, 97, 98, 108, 101, 32, 111, 102, 32, 109, 111, 114, 101, 32, 116, 97, 115, 107, 115, 44, 32, 101, 110, 97, 98, 108, 105, 110, 103, 32, 109, 111, 114, 101, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 46, 32, 77, 111, 114, 101, 32, 112, 101, 111, 112, 108, 101, 32, 97, 110, 100, 32, 116, 101, 97, 109, 115, 32, 108, 101, 118, 101, 114, 97, 103, 101, 32, 65, 73, 32, 116, 111, 32, 105, 110, 99, 114, 101, 97, 115, 101, 32, 112, 114, 111, 100, 117, 99, 116, 105, 118, 105, 116, 121, 44, 32, 99, 114, 101, 97, 116, 101, 32, 101, 99, 111, 110, 111, 109, 105, 99, 32, 118, 97, 108, 117, 101, 44, 32, 97, 110, 100, 32, 105, 109, 112, 114, 111, 118, 101, 32, 113, 117, 97, 108, 105, 116, 121, 32, 111, 102, 32, 108, 105, 102, 101, 46, 32, 83, 101, 99, 111, 110, 100, 44, 32, 116, 114, 97, 105, 110, 105, 110, 103, 32, 108, 97, 114, 103, 101, 32, 108, 97, 110, 103, 117, 97, 103, 101, 32, 109, 111, 100, 101, 108, 115, 32, 40, 76, 76, 77, 115, 41, 32, 114, 101, 113, 117, 105, 114, 101, 115, 32, 100, 97, 116, 97, 44, 32, 99, 111, 109, 112, 117, 116, 101, 32, 114, 101, 115, 111, 117, 114, 99, 101, 115, 44, 32, 97, 110, 100, 32, 115, 112, 101, 99, 105, 97, 108, 105, 122, 101, 100, 32, 116, 97, 108, 101, 110, 116, 32, 116, 104, 97, 116, 32, 111, 110, 108, 121, 32, 97, 32, 102, 101, 119, 32, 111, 114, 103, 97, 110, 105, 122, 97, 116, 105, 111, 110, 115, 32, 99, 97, 110, 32, 97, 102, 102, 111, 114, 100, 46, 32, 84, 104, 105, 115, 32, 104, 97, 115, 32, 108, 101, 100, 32, 116, 111, 32, 116, 104, 101, 32, 101, 109, 101, 114, 103, 101, 110, 99, 101, 32, 111, 102, 32, 109, 111, 100, 101, 108, 32, 97, 115, 32, 97, 32, 115, 101, 114, 118, 105, 99, 101, 58, 32, 109, 111, 100, 101, 108, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 98, 121, 32, 116, 104, 101, 115, 101, 32, 102, 101, 119, 32, 111, 114, 103, 97, 110, 105, 122, 97, 116, 105, 111, 110, 115, 32, 97, 114, 101, 32, 109, 97, 100, 101, 32, 97, 118, 97, 105, 108, 97, 98, 108, 101, 32, 102, 111, 114, 32, 111, 116, 104, 101, 114, 115, 32, 116, 111, 32, 117, 115, 101, 32, 97, 115, 32, 97, 32, 115, 101, 114, 118, 105, 99, 101, 46, 32, 65, 110, 121, 111, 110, 101, 32, 119, 104, 111, 32, 119, 105, 115, 104, 101, 115, 32, 116, 111, 32, 108, 101, 118, 101, 114, 97, 103, 101, 32, 65, 73, 32, 116, 111, 32, 98, 117, 105, 108, 100, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 99, 97, 110, 32, 110, 111, 119, 32, 117, 115, 101, 32, 116, 104, 101, 115, 101, 32, 109, 111, 100, 101, 108, 115, 32, 116, 111, 32, 100, 111, 32, 115, 111, 32, 119, 105, 116, 104, 111, 117, 116, 32, 104, 97, 118, 105, 110, 103, 32, 116, 111, 32, 105, 110, 118, 101, 115, 116, 32, 117, 112, 32, 102, 114, 111, 110, 116, 32, 105, 110, 32, 98, 117, 105, 108, 100, 105, 110, 103, 32, 97, 32, 109, 111, 100, 101, 108, 46, 32, 73, 110, 32, 115, 104, 111, 114, 116, 44, 32, 116, 104, 101, 32, 100, 101, 109, 97, 110, 100, 32, 102, 111, 114, 32, 65, 73, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 104, 97, 115, 32, 105, 110, 99, 114, 101, 97, 115, 101, 100, 32, 119, 104, 105, 108, 101, 32, 116, 104, 101, 32, 98, 97, 114, 114, 105, 101, 114, 32, 116, 111, 32, 101, 110, 116, 114, 121, 32, 102, 111, 114, 32, 98, 117, 105, 108, 100, 105, 110, 103, 32, 65, 73, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 104, 97, 115, 32, 100, 101, 99, 114, 101, 97, 115, 101, 100, 46, 32, 84, 104, 105, 115, 32, 104, 97, 115, 32, 116, 117, 114, 110, 101, 100, 32, 65, 73, 32, 101, 110, 103, 105, 110, 101, 101, 114, 105, 110, 103, 226, 128, 148, 116, 104, 101, 32, 112, 114, 111, 99, 101, 115, 115, 32, 111, 102, 32, 98, 117, 105, 108, 100, 105, 110, 103, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 111, 110, 32, 116, 111, 112, 32, 111, 102, 32, 114, 101, 97, 100, 105, 108, 121, 32, 97, 118, 97, 105, 108, 97, 98, 108, 101, 32, 109, 111, 100, 101, 108, 115, 226, 128, 148, 105, 110, 116, 111, 32, 111, 110, 101, 32, 111, 102, 32, 116, 104, 101, 32, 102, 97, 115, 116, 101, 115, 116, 45, 103, 114, 111, 119, 105, 110, 103, 32, 101, 110, 103, 105, 110, 101, 101, 114, 105, 110, 103, 32, 100, 105, 115, 99, 105, 112, 108, 105, 110, 101, 115, 46, 32, 66, 117, 105, 108, 100, 105, 110, 103, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 111, 110, 32, 116, 111, 112, 32, 111, 102, 32, 109, 97, 99, 104, 105, 110, 101, 32, 108, 101, 97, 114, 110, 105, 110, 103, 32, 40, 77, 76, 41, 32, 109, 111, 100, 101, 108, 115, 32, 105, 115, 110, 226, 128, 153, 116, 32, 110, 101, 119, 46, 32, 76, 111, 110, 103, 32, 98, 101, 102, 111, 114, 101, 32, 76, 76, 77, 115, 32, 98, 101, 99, 97, 109, 101, 32, 112, 114, 111, 109, 105, 110, 101, 110, 116, 44, 32, 65, 73, 32, 119, 97, 115, 32, 97, 108, 114, 101, 97, 100, 121, 32, 112, 111, 119, 101, 114, 105, 110, 103, 32, 109, 97, 110, 121, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 44, 32, 105, 110, 99, 108, 117, 100, 105, 110, 103, 32, 112, 114, 111, 100, 117, 99, 116, 32, 114, 101, 99, 111, 109, 109, 101, 110, 100, 97, 116, 105, 111, 110, 115, 44, 32, 102, 114, 97, 117, 100, 32, 100, 101, 116, 101, 99, 116, 105, 111, 110, 44, 32, 97, 110, 100, 32, 99, 104, 117, 114, 110, 32, 112, 114, 101, 100, 105, 99, 116, 105, 111, 110, 46, 32, 87, 104, 105, 108, 101, 32, 109, 97, 110, 121, 32, 112, 114, 105, 110, 99, 105, 112, 108, 101, 115, 32, 111, 102, 32, 112, 114, 111, 100, 117, 99, 116, 105, 111, 110, 105, 122, 105, 110, 103, 32, 65, 73, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 114, 101, 109, 97, 105, 110, 32, 116, 104, 101, 32, 115, 97, 109, 101, 44, 32, 116, 104, 101, 32, 110, 101, 119, 32, 103, 101, 110, 101, 114, 97, 116, 105, 111, 110, 32, 111, 102, 32, 108, 97, 114, 103, 101, 45, 115, 99, 97, 108, 101, 44, 32, 114, 101, 97, 100, 105, 108, 121, 32, 97, 118, 97, 105, 108, 97, 98, 108, 101, 32, 109, 111, 100, 101, 108, 115, 32, 98, 114, 105, 110, 103, 115, 32, 97, 98, 111, 117, 116, 32, 110, 101, 119, 32, 112, 111, 115, 115, 105, 98, 105, 108, 105, 116, 105, 101, 115, 32, 97, 110, 100, 32, 110, 101, 119, 32, 99, 104, 97, 108, 108, 101, 110, 103, 101, 115, 44, 32, 119, 104, 105, 99, 104, 32, 97, 114, 101, 32, 116, 104, 101, 32, 102, 111, 99, 117, 115, 32, 111, 102, 32, 116, 104, 105, 115, 32, 98, 111, 111, 107, 46, 32, 84, 104, 105, 115, 32, 99, 104, 97, 112, 116, 101, 114, 32, 98, 101, 103, 105, 110, 115, 32, 119, 105, 116, 104, 32, 97, 110, 32, 111, 118, 101, 114, 118, 105, 101, 119, 32, 111, 102, 32, 102, 111, 117, 110, 100, 97, 116, 105, 111, 110, 32, 109, 111, 100, 101, 108, 115, 44, 32, 116, 104, 101, 32, 107, 101, 121, 32, 99, 97, 116, 97, 108, 121, 115, 116, 32, 98, 101, 104, 105, 110, 100, 32, 116, 104, 101, 32, 101, 120, 112, 108, 111, 115, 105, 111, 110, 32, 111, 102, 32, 65, 73, 32, 101, 110, 103, 105, 110, 101, 101, 114, 105, 110, 103, 46, 32, 73, 226, 128, 153, 108, 108, 32, 116, 104, 101, 110, 32, 100, 105, 115, 99, 117, 115, 115, 32, 97, 32, 114, 97, 110, 103, 101, 32, 111, 102, 32, 115, 117, 99, 99, 101, 115, 115, 102, 117, 108, 32, 65, 73, 32, 117, 115, 101, 32, 99, 97, 115, 101, 115, 44, 32, 101, 97, 99, 104, 32, 105, 108, 108, 117, 115, 116, 114, 97, 116, 105, 110, 103, 32, 119, 104, 97, 116, 32, 65, 73, 32, 105, 115, 32, 103, 111, 111, 100, 32, 97, 110, 100, 32, 110, 111, 116, 32, 121, 101, 116, 32, 103, 111, 111, 100, 32, 97, 116, 46, 32, 65, 115, 32, 65, 73, 226, 128, 153, 115, 32, 99, 97, 112, 97, 98, 105, 108, 105, 116, 105, 101, 115, 32, 101, 120, 112, 97, 110, 100, 32, 100, 97, 105, 108, 121, 44, 32, 112, 114, 101, 100, 105, 99, 116, 105, 110, 103, 32, 105, 116, 115, 32, 102, 117, 116, 117, 114, 101, 32, 112, 111, 115, 115, 105, 98, 105, 108, 105, 116, 105, 101, 115, 32, 98, 101, 99, 111, 109, 101, 115, 32, 105, 110, 99, 114, 101, 97, 115, 105, 110, 103, 108, 121, 32, 99, 104, 97, 108, 108, 101, 110, 103, 105, 110, 103, 46, 32, 72, 111, 119, 101, 118, 101, 114, 44, 32, 101, 120, 105, 115, 116, 105, 110, 103, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 112, 97, 116, 116, 101, 114, 110, 115, 32, 99, 97, 110, 32, 104, 101, 108, 112, 32, 117, 110, 99, 111, 118, 101, 114, 32, 111, 112, 112, 111, 114, 116, 117, 110, 105, 116, 105, 101, 115, 32, 116, 111, 100, 97, 121, 32, 97, 110, 100, 32, 111, 102, 102, 101, 114, 32, 99, 108, 117, 101, 115, 32, 97, 98, 111, 117, 116, 32, 104, 111, 119, 32, 65, 73, 32, 109, 97, 121, 32, 99, 111, 110, 116, 105, 110, 117, 101, 32, 116, 111, 32, 98, 101, 32, 117, 115, 101, 100, 32, 105, 110, 32, 116, 104, 101, 32, 102, 117, 116, 117, 114, 101, 46, 32, 84, 111, 32, 99, 108, 111, 115, 101, 32, 111, 117, 116, 32, 116, 104, 101, 32, 99, 104, 97, 112, 116, 101, 114, 44, 32, 73, 226, 128, 153, 108, 108, 32, 112, 114, 111, 118, 105, 100, 101, 32, 97, 110, 32, 111, 118, 101, 114, 118, 105, 101, 119, 32, 111, 102, 32, 116, 104, 101, 32, 110, 101, 119, 32, 65, 73, 32, 115, 116, 97, 99, 107, 44, 32, 105, 110, 99, 108, 117, 100, 105, 110, 103, 32, 119, 104, 97, 116, 32, 104, 97, 115, 32, 99, 104, 97, 110, 103, 101, 100, 32, 119, 105, 116, 104, 32, 102, 111, 117, 110, 100, 97, 116, 105, 111, 110, 32, 109, 111, 100, 101, 108, 115, 44, 32, 119, 104, 97, 116, 32, 114, 101, 109, 97, 105, 110, 115, 32, 116, 104, 101, 32, 115, 97, 109, 101, 44, 32, 97, 110, 100, 32, 104, 111, 119, 32, 116, 104, 101, 32, 114, 111, 108, 101, 32, 111, 102, 32, 97, 110, 32, 65, 73, 32, 101, 110, 103, 105, 110, 101, 101, 114, 32, 116, 111, 100, 97, 121, 32, 100, 105, 102, 102, 101, 114, 115, 32, 102, 114, 111, 109, 32, 116, 104, 97, 116, 32, 111, 102, 32, 97, 32, 116, 114, 97, 100, 105, 116, 105, 111, 110, 97, 108, 32, 77, 76, 32, 101, 110, 103, 105, 110, 101, 101, 114, 46]
+length of tokens: 2153</code></pre>
+</div>
+</div>
+<section id="byte-pair-encoding-algorithm" class="level1">
+<h1>Byte-Pair Encoding Algorithm</h1>
+<ul>
+<li>find the pair of bytes that occur most frequently</li>
+<li>mint a new token representation of them</li>
+</ul>
+<div id="444c735d" class="cell" data-execution_count="84">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> get_most_frequent_pair(ids):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># count the frequency of each pair of bytes</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    pair_counts <span class="op">=</span> {}</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> pair <span class="kw">in</span> <span class="bu">zip</span>(ids, ids[<span class="dv">1</span>:]): <span class="co"># zip() pairs each byte with the next one</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        pair_counts[pair] <span class="op">=</span> pair_counts.get(pair, <span class="dv">0</span>) <span class="op">+</span> <span class="dv">1</span> <span class="co"># get() returns the value of the pair, or 0 if it doesn't exist</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pair_counts</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>most_frequent_pair <span class="op">=</span> get_most_frequent_pair(tokens)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># print(most_frequent_pair)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">sorted</span>(((value, key) <span class="cf">for</span> key, value <span class="kw">in</span> most_frequent_pair.items()), reverse<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[(57, (101, 32)), (52, (115, 32)), (48, (105, 110)), (40, (32, 116)), (40, (32, 97)), (35, (110, 103)), (31, (111, 110)), (29, (32, 111)), (28, (116, 105)), (26, (114, 101)), (26, (97, 116)), (25, (116, 104)), (24, (101, 114)), (24, (97, 110)), (23, (100, 32)), (23, (44, 32)), (22, (104, 101)), (21, (101, 115)), (21, (32, 109)), (20, (105, 111)), (20, (103, 32)), (19, (111, 100)), (19, (110, 32)), (19, (99, 97)), (19, (32, 99)), (18, (111, 102)), (18, (108, 105)), (18, (100, 101)), (18, (32, 65)), (17, (116, 32)), (17, (110, 101)), (17, (108, 101)), (17, (105, 108)), (17, (104, 97)), (17, (102, 32)), (16, (110, 100)), (16, (101, 110)), (16, (97, 115)), (16, (65, 73)), (15, (111, 32)), (15, (110, 115)), (15, (109, 111)), (15, (105, 99)), (15, (73, 32)), (15, (46, 32)), (15, (32, 112)), (15, (32, 98)), (14, (121, 32)), (14, (116, 111)), (14, (115, 101)), (14, (111, 114)), (14, (101, 108)), (14, (100, 105)), (14, (32, 102)), (13, (112, 108)), (13, (97, 112)), (13, (32, 105)), (13, (32, 101)), (11, (119, 32)), (11, (114, 111)), (11, (105, 116)), (11, (101, 97)), (11, (97, 108)), (11, (32, 119)), (10, (112, 114)), (10, (112, 112)), (10, (108, 115)), (10, (105, 115)), (10, (103, 101)), (10, (101, 100)), (10, (32, 115)), (10, (32, 104)), (10, (32, 100)), (9, (118, 101)), (9, (114, 32)), (9, (110, 99)), (9, (109, 97)), (9, (104, 105)), (9, (101, 119)), (9, (101, 99)), (9, (99, 111)), (9, (99, 104)), (9, (32, 114)), (8, (116, 101)), (8, (115, 116)), (8, (115, 44)), (8, (114, 97)), (8, (102, 111)), (8, (97, 98)), (8, (32, 108)), (7, (118, 105)), (7, (117, 116)), (7, (117, 115)), (7, (114, 105)), (7, (111, 119)), (7, (111, 117)), (7, (111, 109)), (7, (105, 101)), (7, (103, 105)), (7, (100, 97)), (7, (99, 101)), (7, (98, 101)), (7, (97, 114)), (7, (97, 105)), (7, (32, 117)), (7, (32, 110)), (6, (226, 128)), (6, (119, 104)), (6, (117, 105)), (6, (110, 116)), (6, (110, 105)), (6, (109, 101)), (6, (108, 121)), (6, (108, 97)), (6, (108, 32)), (6, (99, 116)), (6, (97, 32)), (5, (119, 105)), (5, (117, 114)), (5, (116, 97)), (5, (115, 115)), (5, (114, 103)), (5, (112, 111)), (5, (112, 32)), (5, (111, 118)), (5, (111, 112)), (5, (108, 117)), (5, (108, 108)), (5, (108, 100)), (5, (104, 111)), (5, (102, 101)), (5, (101, 101)), (5, (99, 114)), (5, (98, 108)), (5, (97, 100)), (4, (128, 153)), (4, (118, 97)), (4, (117, 110)), (4, (117, 101)), (4, (117, 99)), (4, (116, 117)), (4, (116, 114)), (4, (115, 105)), (4, (115, 99)), (4, (114, 118)), (4, (114, 110)), (4, (112, 97)), (4, (111, 115)), (4, (105, 122)), (4, (104, 32)), (4, (102, 117)), (4, (101, 118)), (4, (101, 109)), (4, (101, 44)), (4, (99, 108)), (4, (98, 117)), (4, (97, 118)), (4, (97, 109)), (4, (84, 104)), (4, (32, 84)), (3, (119, 101)), (3, (117, 100)), (3, (116, 44)), (3, (115, 46)), (3, (114, 115)), (3, (113, 117)), (3, (112, 101)), (3, (111, 111)), (3, (110, 121)), (3, (110, 111)), (3, (109, 105)), (3, (108, 111)), (3, (102, 114)), (3, (102, 102)), (3, (101, 120)), (3, (101, 46)), (3, (100, 117)), (3, (99, 105)), (3, (98, 111)), (3, (98, 105)), (3, (97, 121)), (3, (97, 103)), (3, (97, 99)), (3, (73, 226)), (3, (32, 103)), (3, (32, 73)), (2, (153, 108)), (2, (128, 148)), (2, (122, 97)), (2, (121, 44)), (2, (120, 112)), (2, (117, 112)), (2, (117, 108)), (2, (117, 97)), (2, (116, 121)), (2, (115, 111)), (2, (115, 104)), (2, (115, 97)), (2, (114, 116)), (2, (114, 44)), (2, (112, 116)), (2, (111, 116)), (2, (111, 99)), (2, (110, 97)), (2, (109, 112)), (2, (105, 114)), (2, (105, 112)), (2, (105, 102)), (2, (105, 98)), (2, (103, 111)), (2, (103, 97)), (2, (103, 46)), (2, (101, 116)), (2, (101, 113)), (2, (100, 46)), (2, (99, 117)), (2, (77, 115)), (2, (77, 76)), (2, (76, 77)), (2, (76, 76)), (2, (41, 32)), (2, (32, 77)), (2, (32, 76)), (2, (32, 40)), (1, (153, 116)), (1, (153, 115)), (1, (148, 116)), (1, (148, 105)), (1, (122, 105)), (1, (122, 101)), (1, (121, 115)), (1, (121, 111)), (1, (121, 101)), (1, (120, 105)), (1, (119, 111)), (1, (119, 97)), (1, (119, 46)), (1, (116, 119)), (1, (116, 116)), (1, (116, 115)), (1, (116, 46)), (1, (116, 45)), (1, (115, 226)), (1, (115, 117)), (1, (115, 112)), (1, (115, 110)), (1, (115, 107)), (1, (115, 102)), (1, (115, 41)), (1, (114, 121)), (1, (114, 114)), (1, (114, 102)), (1, (114, 100)), (1, (114, 99)), (1, (114, 46)), (1, (112, 117)), (1, (111, 108)), (1, (111, 107)), (1, (110, 226)), (1, (110, 118)), (1, (110, 117)), (1, (110, 108)), (1, (110, 46)), (1, (110, 44)), (1, (109, 115)), (1, (109, 109)), (1, (109, 32)), (1, (108, 114)), (1, (108, 112)), (1, (108, 46)), (1, (107, 115)), (1, (107, 101)), (1, (107, 46)), (1, (107, 44)), (1, (106, 111)), (1, (105, 118)), (1, (105, 109)), (1, (105, 100)), (1, (105, 97)), (1, (104, 117)), (1, (103, 226)), (1, (103, 117)), (1, (103, 115)), (1, (103, 114)), (1, (103, 108)), (1, (102, 97)), (1, (101, 121)), (1, (101, 111)), (1, (101, 104)), (1, (101, 103)), (1, (101, 102)), (1, (101, 58)), (1, (101, 45)), (1, (100, 121)), (1, (100, 111)), (1, (100, 44)), (1, (99, 107)), (1, (99, 99)), (1, (99, 32)), (1, (98, 121)), (1, (98, 114)), (1, (98, 97)), (1, (97, 117)), (1, (97, 106)), (1, (97, 102)), (1, (97, 44)), (1, (87, 104)), (1, (84, 111)), (1, (83, 101)), (1, (77, 111)), (1, (76, 111)), (1, (76, 41)), (1, (76, 32)), (1, (73, 110)), (1, (72, 111)), (1, (70, 105)), (1, (66, 117)), (1, (65, 115)), (1, (65, 110)), (1, (58, 32)), (1, (45, 115)), (1, (45, 103)), (1, (40, 77)), (1, (40, 76)), (1, (32, 121)), (1, (32, 118)), (1, (32, 113)), (1, (32, 107)), (1, (32, 87)), (1, (32, 83)), (1, (32, 72)), (1, (32, 70)), (1, (32, 66))]</code></pre>
+</div>
+</div>
+<div id="7ddd5af0" class="cell" data-execution_count="85">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">chr</span>(<span class="dv">101</span>), <span class="bu">chr</span>(<span class="dv">32</span>) <span class="co"># most common tokens changed back into characters</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="85">
+<pre><code>('e', ' ')</code></pre>
+</div>
+</div>
+<div id="6bb8dbf6" class="cell" data-execution_count="86">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>top_ranking_pair <span class="op">=</span> <span class="bu">max</span>(most_frequent_pair, key<span class="op">=</span>most_frequent_pair.get) <span class="co"># key=most_frequent_pair.get ranks the keys by the value of the pair</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>top_ranking_pair</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="86">
+<pre><code>(101, 32)</code></pre>
+</div>
+</div>
+<div id="665d8c45" class="cell" data-execution_count="87">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> merge_tokens(ids, pair, idx):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># in the list of ints (ids), replace all consecutive occurrences of the pair with a new token</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    newids <span class="op">=</span> []</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(ids):</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># if we are not at the very last position AND the pair matches, replace it</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> i <span class="op">&lt;</span> <span class="bu">len</span>(ids) <span class="op">-</span> <span class="dv">1</span> <span class="kw">and</span> ids[i] <span class="op">==</span> pair[<span class="dv">0</span>] <span class="kw">and</span> ids[i<span class="op">+</span><span class="dv">1</span>] <span class="op">==</span> pair[<span class="dv">1</span>]:</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>            newids.append(idx)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>            i <span class="op">+=</span> <span class="dv">2</span> <span class="co"># skip the next two bytes</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>            newids.append(ids[i])</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>            i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> newids</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"length of tokens before merge:"</span>, <span class="bu">len</span>(tokens))</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"---Merging tokens---"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>tokens_after_merge <span class="op">=</span> merge_tokens(tokens, top_ranking_pair, <span class="dv">255</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"---"</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tokens_after_merge)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"length of tokens after merge:"</span>, <span class="bu">len</span>(tokens_after_merge))</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>length of tokens before merge: 2153
+---Merging tokens---
+---
+[84, 104, 255, 115, 99, 97, 108, 105, 110, 103, 32, 117, 112, 32, 111, 102, 32, 65, 73, 32, 109, 111, 100, 101, 108, 115, 32, 104, 97, 115, 32, 116, 119, 111, 32, 109, 97, 106, 111, 114, 32, 99, 111, 110, 115, 101, 113, 117, 101, 110, 99, 101, 115, 46, 32, 70, 105, 114, 115, 116, 44, 32, 65, 73, 32, 109, 111, 100, 101, 108, 115, 32, 97, 114, 255, 98, 101, 99, 111, 109, 105, 110, 103, 32, 109, 111, 114, 255, 112, 111, 119, 101, 114, 102, 117, 108, 32, 97, 110, 100, 32, 99, 97, 112, 97, 98, 108, 255, 111, 102, 32, 109, 111, 114, 255, 116, 97, 115, 107, 115, 44, 32, 101, 110, 97, 98, 108, 105, 110, 103, 32, 109, 111, 114, 255, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 46, 32, 77, 111, 114, 255, 112, 101, 111, 112, 108, 255, 97, 110, 100, 32, 116, 101, 97, 109, 115, 32, 108, 101, 118, 101, 114, 97, 103, 255, 65, 73, 32, 116, 111, 32, 105, 110, 99, 114, 101, 97, 115, 255, 112, 114, 111, 100, 117, 99, 116, 105, 118, 105, 116, 121, 44, 32, 99, 114, 101, 97, 116, 255, 101, 99, 111, 110, 111, 109, 105, 99, 32, 118, 97, 108, 117, 101, 44, 32, 97, 110, 100, 32, 105, 109, 112, 114, 111, 118, 255, 113, 117, 97, 108, 105, 116, 121, 32, 111, 102, 32, 108, 105, 102, 101, 46, 32, 83, 101, 99, 111, 110, 100, 44, 32, 116, 114, 97, 105, 110, 105, 110, 103, 32, 108, 97, 114, 103, 255, 108, 97, 110, 103, 117, 97, 103, 255, 109, 111, 100, 101, 108, 115, 32, 40, 76, 76, 77, 115, 41, 32, 114, 101, 113, 117, 105, 114, 101, 115, 32, 100, 97, 116, 97, 44, 32, 99, 111, 109, 112, 117, 116, 255, 114, 101, 115, 111, 117, 114, 99, 101, 115, 44, 32, 97, 110, 100, 32, 115, 112, 101, 99, 105, 97, 108, 105, 122, 101, 100, 32, 116, 97, 108, 101, 110, 116, 32, 116, 104, 97, 116, 32, 111, 110, 108, 121, 32, 97, 32, 102, 101, 119, 32, 111, 114, 103, 97, 110, 105, 122, 97, 116, 105, 111, 110, 115, 32, 99, 97, 110, 32, 97, 102, 102, 111, 114, 100, 46, 32, 84, 104, 105, 115, 32, 104, 97, 115, 32, 108, 101, 100, 32, 116, 111, 32, 116, 104, 255, 101, 109, 101, 114, 103, 101, 110, 99, 255, 111, 102, 32, 109, 111, 100, 101, 108, 32, 97, 115, 32, 97, 32, 115, 101, 114, 118, 105, 99, 101, 58, 32, 109, 111, 100, 101, 108, 115, 32, 100, 101, 118, 101, 108, 111, 112, 101, 100, 32, 98, 121, 32, 116, 104, 101, 115, 255, 102, 101, 119, 32, 111, 114, 103, 97, 110, 105, 122, 97, 116, 105, 111, 110, 115, 32, 97, 114, 255, 109, 97, 100, 255, 97, 118, 97, 105, 108, 97, 98, 108, 255, 102, 111, 114, 32, 111, 116, 104, 101, 114, 115, 32, 116, 111, 32, 117, 115, 255, 97, 115, 32, 97, 32, 115, 101, 114, 118, 105, 99, 101, 46, 32, 65, 110, 121, 111, 110, 255, 119, 104, 111, 32, 119, 105, 115, 104, 101, 115, 32, 116, 111, 32, 108, 101, 118, 101, 114, 97, 103, 255, 65, 73, 32, 116, 111, 32, 98, 117, 105, 108, 100, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 99, 97, 110, 32, 110, 111, 119, 32, 117, 115, 255, 116, 104, 101, 115, 255, 109, 111, 100, 101, 108, 115, 32, 116, 111, 32, 100, 111, 32, 115, 111, 32, 119, 105, 116, 104, 111, 117, 116, 32, 104, 97, 118, 105, 110, 103, 32, 116, 111, 32, 105, 110, 118, 101, 115, 116, 32, 117, 112, 32, 102, 114, 111, 110, 116, 32, 105, 110, 32, 98, 117, 105, 108, 100, 105, 110, 103, 32, 97, 32, 109, 111, 100, 101, 108, 46, 32, 73, 110, 32, 115, 104, 111, 114, 116, 44, 32, 116, 104, 255, 100, 101, 109, 97, 110, 100, 32, 102, 111, 114, 32, 65, 73, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 104, 97, 115, 32, 105, 110, 99, 114, 101, 97, 115, 101, 100, 32, 119, 104, 105, 108, 255, 116, 104, 255, 98, 97, 114, 114, 105, 101, 114, 32, 116, 111, 32, 101, 110, 116, 114, 121, 32, 102, 111, 114, 32, 98, 117, 105, 108, 100, 105, 110, 103, 32, 65, 73, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 104, 97, 115, 32, 100, 101, 99, 114, 101, 97, 115, 101, 100, 46, 32, 84, 104, 105, 115, 32, 104, 97, 115, 32, 116, 117, 114, 110, 101, 100, 32, 65, 73, 32, 101, 110, 103, 105, 110, 101, 101, 114, 105, 110, 103, 226, 128, 148, 116, 104, 255, 112, 114, 111, 99, 101, 115, 115, 32, 111, 102, 32, 98, 117, 105, 108, 100, 105, 110, 103, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 111, 110, 32, 116, 111, 112, 32, 111, 102, 32, 114, 101, 97, 100, 105, 108, 121, 32, 97, 118, 97, 105, 108, 97, 98, 108, 255, 109, 111, 100, 101, 108, 115, 226, 128, 148, 105, 110, 116, 111, 32, 111, 110, 255, 111, 102, 32, 116, 104, 255, 102, 97, 115, 116, 101, 115, 116, 45, 103, 114, 111, 119, 105, 110, 103, 32, 101, 110, 103, 105, 110, 101, 101, 114, 105, 110, 103, 32, 100, 105, 115, 99, 105, 112, 108, 105, 110, 101, 115, 46, 32, 66, 117, 105, 108, 100, 105, 110, 103, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 111, 110, 32, 116, 111, 112, 32, 111, 102, 32, 109, 97, 99, 104, 105, 110, 255, 108, 101, 97, 114, 110, 105, 110, 103, 32, 40, 77, 76, 41, 32, 109, 111, 100, 101, 108, 115, 32, 105, 115, 110, 226, 128, 153, 116, 32, 110, 101, 119, 46, 32, 76, 111, 110, 103, 32, 98, 101, 102, 111, 114, 255, 76, 76, 77, 115, 32, 98, 101, 99, 97, 109, 255, 112, 114, 111, 109, 105, 110, 101, 110, 116, 44, 32, 65, 73, 32, 119, 97, 115, 32, 97, 108, 114, 101, 97, 100, 121, 32, 112, 111, 119, 101, 114, 105, 110, 103, 32, 109, 97, 110, 121, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 44, 32, 105, 110, 99, 108, 117, 100, 105, 110, 103, 32, 112, 114, 111, 100, 117, 99, 116, 32, 114, 101, 99, 111, 109, 109, 101, 110, 100, 97, 116, 105, 111, 110, 115, 44, 32, 102, 114, 97, 117, 100, 32, 100, 101, 116, 101, 99, 116, 105, 111, 110, 44, 32, 97, 110, 100, 32, 99, 104, 117, 114, 110, 32, 112, 114, 101, 100, 105, 99, 116, 105, 111, 110, 46, 32, 87, 104, 105, 108, 255, 109, 97, 110, 121, 32, 112, 114, 105, 110, 99, 105, 112, 108, 101, 115, 32, 111, 102, 32, 112, 114, 111, 100, 117, 99, 116, 105, 111, 110, 105, 122, 105, 110, 103, 32, 65, 73, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 115, 32, 114, 101, 109, 97, 105, 110, 32, 116, 104, 255, 115, 97, 109, 101, 44, 32, 116, 104, 255, 110, 101, 119, 32, 103, 101, 110, 101, 114, 97, 116, 105, 111, 110, 32, 111, 102, 32, 108, 97, 114, 103, 101, 45, 115, 99, 97, 108, 101, 44, 32, 114, 101, 97, 100, 105, 108, 121, 32, 97, 118, 97, 105, 108, 97, 98, 108, 255, 109, 111, 100, 101, 108, 115, 32, 98, 114, 105, 110, 103, 115, 32, 97, 98, 111, 117, 116, 32, 110, 101, 119, 32, 112, 111, 115, 115, 105, 98, 105, 108, 105, 116, 105, 101, 115, 32, 97, 110, 100, 32, 110, 101, 119, 32, 99, 104, 97, 108, 108, 101, 110, 103, 101, 115, 44, 32, 119, 104, 105, 99, 104, 32, 97, 114, 255, 116, 104, 255, 102, 111, 99, 117, 115, 32, 111, 102, 32, 116, 104, 105, 115, 32, 98, 111, 111, 107, 46, 32, 84, 104, 105, 115, 32, 99, 104, 97, 112, 116, 101, 114, 32, 98, 101, 103, 105, 110, 115, 32, 119, 105, 116, 104, 32, 97, 110, 32, 111, 118, 101, 114, 118, 105, 101, 119, 32, 111, 102, 32, 102, 111, 117, 110, 100, 97, 116, 105, 111, 110, 32, 109, 111, 100, 101, 108, 115, 44, 32, 116, 104, 255, 107, 101, 121, 32, 99, 97, 116, 97, 108, 121, 115, 116, 32, 98, 101, 104, 105, 110, 100, 32, 116, 104, 255, 101, 120, 112, 108, 111, 115, 105, 111, 110, 32, 111, 102, 32, 65, 73, 32, 101, 110, 103, 105, 110, 101, 101, 114, 105, 110, 103, 46, 32, 73, 226, 128, 153, 108, 108, 32, 116, 104, 101, 110, 32, 100, 105, 115, 99, 117, 115, 115, 32, 97, 32, 114, 97, 110, 103, 255, 111, 102, 32, 115, 117, 99, 99, 101, 115, 115, 102, 117, 108, 32, 65, 73, 32, 117, 115, 255, 99, 97, 115, 101, 115, 44, 32, 101, 97, 99, 104, 32, 105, 108, 108, 117, 115, 116, 114, 97, 116, 105, 110, 103, 32, 119, 104, 97, 116, 32, 65, 73, 32, 105, 115, 32, 103, 111, 111, 100, 32, 97, 110, 100, 32, 110, 111, 116, 32, 121, 101, 116, 32, 103, 111, 111, 100, 32, 97, 116, 46, 32, 65, 115, 32, 65, 73, 226, 128, 153, 115, 32, 99, 97, 112, 97, 98, 105, 108, 105, 116, 105, 101, 115, 32, 101, 120, 112, 97, 110, 100, 32, 100, 97, 105, 108, 121, 44, 32, 112, 114, 101, 100, 105, 99, 116, 105, 110, 103, 32, 105, 116, 115, 32, 102, 117, 116, 117, 114, 255, 112, 111, 115, 115, 105, 98, 105, 108, 105, 116, 105, 101, 115, 32, 98, 101, 99, 111, 109, 101, 115, 32, 105, 110, 99, 114, 101, 97, 115, 105, 110, 103, 108, 121, 32, 99, 104, 97, 108, 108, 101, 110, 103, 105, 110, 103, 46, 32, 72, 111, 119, 101, 118, 101, 114, 44, 32, 101, 120, 105, 115, 116, 105, 110, 103, 32, 97, 112, 112, 108, 105, 99, 97, 116, 105, 111, 110, 32, 112, 97, 116, 116, 101, 114, 110, 115, 32, 99, 97, 110, 32, 104, 101, 108, 112, 32, 117, 110, 99, 111, 118, 101, 114, 32, 111, 112, 112, 111, 114, 116, 117, 110, 105, 116, 105, 101, 115, 32, 116, 111, 100, 97, 121, 32, 97, 110, 100, 32, 111, 102, 102, 101, 114, 32, 99, 108, 117, 101, 115, 32, 97, 98, 111, 117, 116, 32, 104, 111, 119, 32, 65, 73, 32, 109, 97, 121, 32, 99, 111, 110, 116, 105, 110, 117, 255, 116, 111, 32, 98, 255, 117, 115, 101, 100, 32, 105, 110, 32, 116, 104, 255, 102, 117, 116, 117, 114, 101, 46, 32, 84, 111, 32, 99, 108, 111, 115, 255, 111, 117, 116, 32, 116, 104, 255, 99, 104, 97, 112, 116, 101, 114, 44, 32, 73, 226, 128, 153, 108, 108, 32, 112, 114, 111, 118, 105, 100, 255, 97, 110, 32, 111, 118, 101, 114, 118, 105, 101, 119, 32, 111, 102, 32, 116, 104, 255, 110, 101, 119, 32, 65, 73, 32, 115, 116, 97, 99, 107, 44, 32, 105, 110, 99, 108, 117, 100, 105, 110, 103, 32, 119, 104, 97, 116, 32, 104, 97, 115, 32, 99, 104, 97, 110, 103, 101, 100, 32, 119, 105, 116, 104, 32, 102, 111, 117, 110, 100, 97, 116, 105, 111, 110, 32, 109, 111, 100, 101, 108, 115, 44, 32, 119, 104, 97, 116, 32, 114, 101, 109, 97, 105, 110, 115, 32, 116, 104, 255, 115, 97, 109, 101, 44, 32, 97, 110, 100, 32, 104, 111, 119, 32, 116, 104, 255, 114, 111, 108, 255, 111, 102, 32, 97, 110, 32, 65, 73, 32, 101, 110, 103, 105, 110, 101, 101, 114, 32, 116, 111, 100, 97, 121, 32, 100, 105, 102, 102, 101, 114, 115, 32, 102, 114, 111, 109, 32, 116, 104, 97, 116, 32, 111, 102, 32, 97, 32, 116, 114, 97, 100, 105, 116, 105, 111, 110, 97, 108, 32, 77, 76, 32, 101, 110, 103, 105, 110, 101, 101, 114, 46]
+length of tokens after merge: 2096</code></pre>
+</div>
+</div>
+<p>Keep iterating over the next largest pair to mint</p>
+<div id="0363af01" class="cell" data-execution_count="88">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>vocab_size <span class="op">=</span> <span class="dv">276</span> <span class="co"># desired final volcabulary size </span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>number_of_merges <span class="op">=</span> vocab_size <span class="op">-</span> <span class="dv">256</span> <span class="co"># number of merges to perform</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>ids <span class="op">=</span> <span class="bu">list</span>(tokens) <span class="co"># copy so we don't destory original list</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># building a BINARY TREE of merges (starting not from root but from the leaves)</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>merges <span class="op">=</span> {} <span class="co"># (child1, child2) -&gt; mapping to new token</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(number_of_merges):</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  most_frequent_pair <span class="op">=</span> get_most_frequent_pair(ids) <span class="co"># find most commonly occuring pair</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  pair <span class="op">=</span> <span class="bu">max</span>(most_frequent_pair, key<span class="op">=</span>most_frequent_pair.get)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  idx <span class="op">=</span> <span class="dv">256</span> <span class="op">+</span> i</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="bu">print</span>(<span class="ss">f"merging </span><span class="sc">{</span>pair<span class="sc">}</span><span class="ss"> into new token </span><span class="sc">{</span>idx<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  ids <span class="op">=</span> merge_tokens(ids, pair, idx)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>  merges[pair] <span class="op">=</span> idx</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>merging (101, 32) into new token 256
+merging (115, 32) into new token 257
+merging (105, 110) into new token 258
+merging (111, 110) into new token 259
+merging (32, 116) into new token 260
+merging (32, 97) into new token 261
+merging (97, 116) into new token 262
+merging (258, 103) into new token 263
+merging (101, 114) into new token 264
+merging (105, 259) into new token 265
+merging (111, 100) into new token 266
+merging (111, 102) into new token 267
+merging (114, 101) into new token 268
+merging (105, 108) into new token 269
+merging (104, 256) into new token 270
+merging (65, 73) into new token 271
+merging (101, 110) into new token 272
+merging (100, 32) into new token 273
+merging (32, 109) into new token 274
+merging (46, 32) into new token 275</code></pre>
+</div>
+</div>
+<p>Note that some prior minted tokens are also eligible for merging</p>
+<div id="83c0c7dd" class="cell" data-execution_count="89">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(tokens))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">len</span>(ids))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"compression ratio: </span><span class="sc">{</span><span class="bu">len</span>(tokens) <span class="op">/</span> <span class="bu">len</span>(ids)<span class="sc">:.2f}</span><span class="ss">X"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2153
+1653
+compression ratio: 1.30X</code></pre>
+</div>
+</div>
+<p><a href="https://christophergs.com/blog/understanding-llm-tokenization">The Technical User’s Introduction to LLM Tokenization - Christopher Samiullah</a></p>
+<p>The <strong>Tokenizer</strong> is completely seperate, independent module to the LLM. It has its own training dataset of text, on which on <strong>train the vocabulary</strong> using the <strong>Byte-Pair Encoding Algorithm</strong>.</p>
+<p>The Tokenizer then translates back and forth between raw text and sequences of tokens. The LLM later only ever sees the tokens and never deals with any text</p>
+<p><img src="https://substackcdn.com/image/fetch/$s_!Aj2N!,w_1456,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F7eb8e0ce-1111-4896-88ec-4e630d6471ed_1182x488.png" class="img-fluid"></p>
+<section id="decoding" class="level3">
+<h3 class="anchored" data-anchor-id="decoding">Decoding</h3>
+<p>Given the integers, what is the text?</p>
+<div id="db69f812" class="cell" data-execution_count="90">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># dictionary mapping token ids to bytes</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>vocab <span class="op">=</span> {idx: <span class="bu">bytes</span>([idx]) <span class="cf">for</span> idx <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)}</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="co"># in order of all the merges, populate the vocab list</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># run in order of insertion of merges into the dictionary</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (p0, p1), idx <span class="kw">in</span> merges.items():</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># concatenate the bytes</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    vocab[idx] <span class="op">=</span> vocab[p0] <span class="op">+</span> vocab[p1]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(vocab[idx])</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> decode(ids):</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># given ids, return the text</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>    <span class="co"># get the tokens</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    <span class="co"># concat all bytes together</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> <span class="st">b""</span>.join(vocab[idx] <span class="cf">for</span> idx <span class="kw">in</span> ids)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> tokens.decode(<span class="st">'utf-8'</span>, errors<span class="op">=</span><span class="st">'replace'</span>) <span class="co"># utf-8 needs the replace erroring to fix the issue of some tokens not being valid utf-8</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> text</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"----"</span>)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(decode(tokens))</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"----"</span>)</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(decode([<span class="dv">257</span>]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>b'e '
+b's '
+b'in'
+b'on'
+b' t'
+b' a'
+b'at'
+b'ing'
+b'er'
+b'ion'
+b'od'
+b'of'
+b're'
+b'il'
+b'he '
+b'AI'
+b'en'
+b'd '
+b' m'
+b'. '
+----
+The scaling up of AI models has two major consequences. First, AI models are becoming more powerful and capable of more tasks, enabling more applications. More people and teams leverage AI to increase productivity, create economic value, and improve quality of life. Second, training large language models (LLMs) requires data, compute resources, and specialized talent that only a few organizations can afford. This has led to the emergence of model as a service: models developed by these few organizations are made available for others to use as a service. Anyone who wishes to leverage AI to build applications can now use these models to do so without having to invest up front in building a model. In short, the demand for AI applications has increased while the barrier to entry for building AI applications has decreased. This has turned AI engineering—the process of building applications on top of readily available models—into one of the fastest-growing engineering disciplines. Building applications on top of machine learning (ML) models isn’t new. Long before LLMs became prominent, AI was already powering many applications, including product recommendations, fraud detection, and churn prediction. While many principles of productionizing AI applications remain the same, the new generation of large-scale, readily available models brings about new possibilities and new challenges, which are the focus of this book. This chapter begins with an overview of foundation models, the key catalyst behind the explosion of AI engineering. I’ll then discuss a range of successful AI use cases, each illustrating what AI is good and not yet good at. As AI’s capabilities expand daily, predicting its future possibilities becomes increasingly challenging. However, existing application patterns can help uncover opportunities today and offer clues about how AI may continue to be used in the future. To close out the chapter, I’ll provide an overview of the new AI stack, including what has changed with foundation models, what remains the same, and how the role of an AI engineer today differs from that of a traditional ML engineer.
+----
+s </code></pre>
+</div>
+</div>
+<div id="e1d464bf" class="cell" data-execution_count="91">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>merges</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="91">
+<pre><code>{(101, 32): 256,
+ (115, 32): 257,
+ (105, 110): 258,
+ (111, 110): 259,
+ (32, 116): 260,
+ (32, 97): 261,
+ (97, 116): 262,
+ (258, 103): 263,
+ (101, 114): 264,
+ (105, 259): 265,
+ (111, 100): 266,
+ (111, 102): 267,
+ (114, 101): 268,
+ (105, 108): 269,
+ (104, 256): 270,
+ (65, 73): 271,
+ (101, 110): 272,
+ (100, 32): 273,
+ (32, 109): 274,
+ (46, 32): 275}</code></pre>
+</div>
+</div>
+<div id="9f728bd5" class="cell" data-execution_count="92">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>most_frequent_pair</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="92">
+<pre><code>{(84, 270): 1,
+ (270, 115): 3,
+ (115, 99): 4,
+ (99, 97): 9,
+ (97, 108): 11,
+ (108, 263): 2,
+ (263, 32): 11,
+ (32, 117): 6,
+ (117, 112): 2,
+ (112, 32): 5,
+ (32, 267): 9,
+ (267, 32): 9,
+ (32, 271): 12,
+ (271, 274): 3,
+ (274, 266): 8,
+ (266, 101): 12,
+ (101, 108): 14,
+ (108, 257): 7,
+ (257, 104): 5,
+ (104, 97): 12,
+ (97, 257): 8,
+ (257, 116): 7,
+ (116, 119): 1,
+ (119, 111): 1,
+ (111, 274): 1,
+ (274, 97): 4,
+ (97, 106): 1,
+ (106, 111): 1,
+ (111, 114): 14,
+ (114, 32): 4,
+ (32, 99): 9,
+ (99, 259): 4,
+ (259, 115): 1,
+ (115, 101): 5,
+ (101, 113): 1,
+ (113, 117): 3,
+ (117, 272): 1,
+ (272, 99): 2,
+ (99, 101): 6,
+ (101, 115): 11,
+ (115, 46): 3,
+ (46, 32): 15,
+ (32, 70): 1,
+ (70, 105): 1,
+ (105, 114): 1,
+ (114, 115): 1,
+ (115, 116): 8,
+ (116, 44): 3,
+ (44, 32): 15,
+ (257, 97): 9,
+ (97, 114): 6,
+ (114, 256): 9,
+ (256, 98): 1,
+ (98, 101): 6,
+ (101, 99): 8,
+ (99, 111): 5,
+ (111, 109): 7,
+ (109, 263): 1,
+ (263, 274): 3,
+ (274, 111): 3,
+ (256, 112): 5,
+ (112, 111): 5,
+ (111, 119): 7,
+ (119, 264): 2,
+ (264, 102): 1,
+ (102, 117): 4,
+ (117, 108): 2,
+ (108, 261): 2,
+ (261, 110): 9,
+ (110, 273): 10,
+ (273, 99): 2,
+ (97, 112): 5,
+ (112, 97): 3,
+ (97, 98): 8,
+ (98, 108): 5,
+ (108, 256): 6,
+ (256, 267): 5,
+ (267, 274): 3,
+ (256, 116): 5,
+ (116, 97): 2,
+ (97, 115): 7,
+ (115, 107): 1,
+ (107, 115): 1,
+ (115, 44): 8,
+ (32, 272): 7,
+ (272, 97): 1,
+ (256, 97): 5,
+ (112, 112): 10,
+ (112, 108): 13,
+ (108, 105): 12,
+ (105, 99): 15,
+ (99, 262): 10,
+ (262, 265): 15,
+ (265, 115): 3,
+ (32, 77): 2,
+ (77, 111): 1,
+ (112, 101): 3,
+ (101, 111): 1,
+ (111, 112): 5,
+ (97, 110): 15,
+ (110, 100): 3,
+ (100, 260): 4,
+ (260, 101): 1,
+ (101, 97): 3,
+ (97, 109): 4,
+ (109, 257): 1,
+ (257, 108): 2,
+ (108, 101): 6,
+ (101, 118): 4,
+ (118, 264): 6,
+ (264, 97): 2,
+ (97, 103): 3,
+ (103, 256): 5,
+ (256, 271): 2,
+ (271, 260): 2,
+ (260, 111): 7,
+ (111, 32): 13,
+ (32, 258): 5,
+ (258, 99): 6,
+ (99, 268): 5,
+ (268, 97): 7,
+ (115, 256): 7,
+ (112, 114): 8,
+ (114, 266): 3,
+ (266, 117): 3,
+ (117, 99): 4,
+ (99, 116): 6,
+ (116, 105): 5,
+ (105, 118): 1,
+ (118, 105): 6,
+ (105, 116): 11,
+ (116, 121): 2,
+ (121, 44): 2,
+ (268, 262): 1,
+ (262, 256): 1,
+ (256, 101): 1,
+ (259, 111): 1,
+ (109, 105): 1,
+ (99, 32): 1,
+ (32, 118): 1,
+ (118, 97): 4,
+ (108, 117): 5,
+ (117, 101): 2,
+ (101, 44): 4,
+ (44, 261): 4,
+ (273, 105): 1,
+ (105, 109): 1,
+ (109, 112): 2,
+ (114, 111): 7,
+ (111, 118): 5,
+ (118, 256): 1,
+ (256, 113): 1,
+ (117, 97): 2,
+ (121, 32): 8,
+ (32, 108): 4,
+ (105, 102): 2,
+ (102, 101): 3,
+ (101, 46): 2,
+ (32, 83): 1,
+ (83, 101): 1,
+ (259, 100): 1,
+ (100, 44): 1,
+ (44, 260): 4,
+ (260, 114): 2,
+ (114, 97): 4,
+ (97, 258): 3,
+ (258, 263): 1,
+ (108, 97): 3,
+ (114, 103): 4,
+ (256, 108): 2,
+ (110, 103): 3,
+ (103, 117): 1,
+ (256, 109): 6,
+ (109, 266): 4,
+ (257, 40): 1,
+ (40, 76): 1,
+ (76, 76): 2,
+ (76, 77): 2,
+ (77, 115): 1,
+ (115, 41): 1,
+ (41, 32): 1,
+ (32, 268): 5,
+ (268, 113): 1,
+ (117, 105): 1,
+ (105, 268): 1,
+ (268, 257): 1,
+ (257, 100): 3,
+ (100, 262): 4,
+ (262, 97): 2,
+ (97, 44): 1,
+ (112, 117): 1,
+ (117, 116): 7,
+ (116, 256): 1,
+ (256, 268): 1,
+ (268, 115): 1,
+ (115, 111): 2,
+ (111, 117): 7,
+ (117, 114): 4,
+ (114, 99): 1,
+ (273, 115): 1,
+ (115, 112): 1,
+ (99, 105): 3,
+ (105, 97): 1,
+ (105, 122): 4,
+ (122, 101): 1,
+ (101, 100): 3,
+ (260, 97): 1,
+ (108, 272): 3,
+ (272, 116): 3,
+ (116, 260): 2,
+ (260, 104): 5,
+ (104, 262): 5,
+ (262, 32): 5,
+ (32, 259): 2,
+ (259, 108): 1,
+ (108, 121): 3,
+ (121, 261): 5,
+ (261, 32): 1,
+ (32, 102): 6,
+ (101, 119): 9,
+ (119, 32): 10,
+ (32, 111): 6,
+ (103, 97): 2,
+ (110, 105): 3,
+ (122, 262): 2,
+ (265, 257): 8,
+ (257, 99): 6,
+ (110, 261): 1,
+ (261, 102): 1,
+ (102, 102): 2,
+ (102, 111): 8,
+ (114, 100): 1,
+ (100, 46): 2,
+ (32, 84): 4,
+ (84, 104): 3,
+ (104, 105): 5,
+ (105, 257): 5,
+ (111, 260): 1,
+ (260, 270): 11,
+ (270, 101): 2,
+ (101, 109): 2,
+ (109, 264): 1,
+ (264, 103): 1,
+ (103, 272): 2,
+ (99, 256): 1,
+ (261, 257): 1,
+ (97, 32): 3,
+ (32, 115): 6,
+ (115, 264): 2,
+ (264, 118): 4,
+ (101, 58): 1,
+ (58, 274): 1,
+ (100, 101): 4,
+ (118, 101): 2,
+ (108, 111): 3,
+ (101, 273): 5,
+ (273, 98): 1,
+ (98, 121): 1,
+ (121, 260): 1,
+ (104, 101): 4,
+ (256, 102): 2,
+ (109, 97): 5,
+ (97, 100): 5,
+ (100, 256): 2,
+ (97, 118): 2,
+ (97, 269): 4,
+ (269, 97): 3,
+ (111, 116): 2,
+ (116, 104): 5,
+ (104, 264): 1,
+ (264, 257): 2,
+ (116, 111): 5,
+ (117, 115): 6,
+ (32, 65): 2,
+ (65, 110): 1,
+ (110, 121): 3,
+ (121, 259): 1,
+ (259, 256): 2,
+ (256, 119): 1,
+ (119, 104): 6,
+ (104, 111): 5,
+ (32, 119): 7,
+ (119, 105): 4,
+ (105, 115): 5,
+ (115, 104): 2,
+ (101, 257): 8,
+ (32, 98): 8,
+ (98, 117): 4,
+ (117, 269): 5,
+ (269, 100): 5,
+ (100, 261): 1,
+ (261, 112): 8,
+ (110, 32): 7,
+ (32, 110): 3,
+ (110, 111): 2,
+ (32, 100): 4,
+ (100, 111): 1,
+ (116, 32): 10,
+ (32, 104): 4,
+ (118, 263): 1,
+ (263, 260): 1,
+ (258, 118): 1,
+ (102, 114): 3,
+ (114, 259): 1,
+ (259, 116): 2,
+ (258, 32): 1,
+ (100, 263): 6,
+ (263, 261): 4,
+ (261, 274): 1,
+ (108, 46): 1,
+ (32, 73): 3,
+ (73, 110): 1,
+ (114, 116): 2,
+ (270, 100): 1,
+ (273, 102): 1,
+ (271, 261): 3,
+ (257, 258): 2,
+ (273, 119): 2,
+ (104, 269): 2,
+ (269, 256): 2,
+ (116, 270): 4,
+ (270, 98): 1,
+ (98, 97): 1,
+ (114, 114): 1,
+ (114, 105): 1,
+ (105, 264): 1,
+ (264, 260): 2,
+ (116, 114): 2,
+ (114, 121): 1,
+ (116, 117): 4,
+ (114, 110): 3,
+ (110, 101): 6,
+ (273, 271): 1,
+ (271, 32): 7,
+ (272, 103): 7,
+ (103, 258): 6,
+ (258, 101): 6,
+ (101, 264): 5,
+ (264, 263): 4,
+ (263, 226): 1,
+ (226, 128): 6,
+ (128, 148): 2,
+ (148, 116): 1,
+ (270, 112): 1,
+ (111, 99): 2,
+ (115, 257): 2,
+ (257, 267): 3,
+ (257, 259): 2,
+ (259, 260): 2,
+ (100, 269): 2,
+ (269, 121): 3,
+ (261, 118): 2,
+ (108, 115): 3,
+ (115, 226): 1,
+ (148, 258): 1,
+ (258, 116): 1,
+ (267, 260): 3,
+ (270, 102): 3,
+ (102, 97): 1,
+ (116, 101): 2,
+ (116, 45): 1,
+ (45, 103): 1,
+ (103, 114): 1,
+ (119, 263): 1,
+ (100, 105): 6,
+ (105, 112): 2,
+ (108, 258): 1,
+ (32, 66): 1,
+ (66, 117): 1,
+ (97, 99): 3,
+ (99, 104): 9,
+ (104, 258): 2,
+ (258, 256): 1,
+ (110, 263): 1,
+ (32, 40): 1,
+ (40, 77): 1,
+ (77, 76): 2,
+ (76, 41): 1,
+ (41, 274): 1,
+ (257, 105): 1,
+ (115, 110): 1,
+ (110, 226): 1,
+ (128, 153): 4,
+ (153, 116): 1,
+ (119, 46): 1,
+ (32, 76): 1,
+ (76, 259): 1,
+ (259, 103): 1,
+ (103, 32): 1,
+ (101, 102): 1,
+ (256, 76): 1,
+ (77, 257): 1,
+ (257, 98): 4,
+ (109, 256): 1,
+ (109, 258): 1,
+ (258, 272): 1,
+ (119, 97): 1,
+ (108, 268): 1,
+ (100, 121): 1,
+ (32, 112): 9,
+ (99, 108): 4,
+ (117, 100): 2,
+ (268, 99): 1,
+ (109, 109): 1,
+ (109, 272): 1,
+ (272, 100): 1,
+ (97, 117): 1,
+ (117, 273): 1,
+ (273, 100): 2,
+ (101, 116): 2,
+ (116, 265): 4,
+ (265, 44): 1,
+ (104, 117): 1,
+ (112, 268): 2,
+ (268, 100): 2,
+ (265, 46): 1,
+ (32, 87): 1,
+ (87, 104): 1,
+ (114, 258): 1,
+ (265, 105): 1,
+ (122, 263): 1,
+ (257, 268): 1,
+ (268, 109): 2,
+ (258, 260): 2,
+ (115, 97): 2,
+ (109, 101): 3,
+ (270, 110): 2,
+ (32, 103): 2,
+ (272, 264): 1,
+ (264, 262): 1,
+ (265, 32): 3,
+ (103, 101): 3,
+ (101, 45): 1,
+ (45, 115): 1,
+ (98, 114): 1,
+ (114, 263): 1,
+ (263, 257): 1,
+ (98, 111): 3,
+ (111, 115): 4,
+ (115, 115): 3,
+ (115, 105): 2,
+ (105, 98): 2,
+ (98, 269): 3,
+ (269, 105): 3,
+ (105, 101): 6,
+ (273, 110): 2,
+ (108, 108): 4,
+ (104, 261): 2,
+ (261, 114): 1,
+ (99, 117): 2,
+ (117, 257): 1,
+ (111, 111): 1,
+ (111, 107): 1,
+ (107, 46): 1,
+ (112, 116): 2,
+ (116, 264): 3,
+ (264, 32): 3,
+ (101, 103): 1,
+ (258, 257): 2,
+ (257, 119): 1,
+ (117, 110): 4,
+ (265, 274): 2,
+ (270, 107): 1,
+ (107, 101): 1,
+ (101, 121): 1,
+ (121, 115): 1,
+ (101, 104): 1,
+ (258, 100): 1,
+ (101, 120): 3,
+ (120, 112): 2,
+ (115, 265): 1,
+ (263, 46): 2,
+ (73, 226): 2,
+ (153, 108): 2,
+ (108, 260): 1,
+ (104, 272): 1,
+ (272, 32): 1,
+ (32, 114): 1,
+ (115, 117): 1,
+ (99, 99): 1,
+ (115, 102): 1,
+ (108, 32): 3,
+ (256, 99): 1,
+ (32, 101): 2,
+ (104, 32): 2,
+ (32, 269): 1,
+ (269, 108): 1,
+ (114, 262): 1,
+ (262, 263): 1,
+ (32, 105): 2,
+ (257, 103): 1,
+ (103, 111): 2,
+ (111, 266): 2,
+ (266, 261): 2,
+ (32, 121): 1,
+ (121, 101): 1,
+ (261, 116): 1,
+ (116, 46): 1,
+ (65, 257): 1,
+ (257, 271): 1,
+ (271, 226): 1,
+ (153, 257): 1,
+ (257, 101): 1,
+ (100, 97): 1,
+ (116, 263): 2,
+ (116, 257): 1,
+ (257, 102): 2,
+ (115, 263): 1,
+ (263, 108): 1,
+ (103, 263): 1,
+ (32, 72): 1,
+ (72, 111): 1,
+ (119, 101): 1,
+ (264, 44): 2,
+ (120, 105): 1,
+ (112, 262): 1,
+ (262, 116): 1,
+ (264, 110): 1,
+ (110, 257): 1,
+ (108, 112): 1,
+ (110, 99): 1,
+ (116, 266): 1,
+ (266, 97): 2,
+ (97, 121): 3,
+ (273, 267): 1,
+ (267, 102): 1,
+ (102, 264): 2,
+ (116, 258): 1,
+ (258, 117): 1,
+ (117, 256): 1,
+ (98, 256): 1,
+ (256, 117): 1,
+ (273, 258): 1,
+ (117, 268): 1,
+ (268, 46): 1,
+ (84, 111): 1,
+ (256, 111): 1,
+ (270, 99): 1,
+ (105, 100): 1,
+ (99, 107): 1,
+ (107, 44): 1,
+ (273, 104): 1,
+ (119, 260): 1,
+ (270, 114): 1,
+ (111, 108): 1,
+ (267, 261): 2,
+ (260, 266): 1,
+ (109, 260): 1,
+ (261, 260): 1,
+ (265, 97): 1,
+ (76, 32): 1,
+ (264, 46): 1}</code></pre>
+</div>
+</div>
+</section>
+<section id="encoding" class="level2">
+<h2 class="anchored" data-anchor-id="encoding">Encoding</h2>
+<p>Given a string, what are the tokens?</p>
+<div id="9868056a" class="cell" data-execution_count="93">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> encode(text):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    tokens <span class="op">=</span> <span class="bu">list</span>(text.encode(<span class="st">'utf-8'</span>))</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># this time we dont care for frequency of pairs</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>        raw_pairs_in_sequence <span class="op">=</span> get_most_frequent_pair(tokens)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># get the lowest index pair (earliest merges first</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># all pairs inside raw_pairs_in_sequence, get index, get pair with min number index</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># float inf is fallback for non merging pairs</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># pair returns the most eligible merging pair from merged list</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        pair <span class="op">=</span> <span class="bu">min</span>(raw_pairs_in_sequence, key<span class="op">=</span><span class="kw">lambda</span> p: merges.get(p, <span class="bu">float</span>(<span class="st">'inf'</span>)))</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> pair <span class="kw">not</span> <span class="kw">in</span> merges:</span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span>  <span class="co"># nothing else can be merged</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>        idx <span class="op">=</span> merges[pair]</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>        tokens <span class="op">=</span> merge_tokens(tokens, pair, idx)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> tokens</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(encode(<span class="st">"hello, world!"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[104, 101, 108, 108, 111, 44, 32, 119, 111, 114, 108, 100, 33]</code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../topics/convolutional-neural-networks.html" class="pagination-link" aria-label="Convolutional Neural Networks">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Convolutional Neural Networks</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../topics/linear-regression.html" class="pagination-link" aria-label="Linear Regression">
+        <span class="nav-page-text">Linear Regression</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

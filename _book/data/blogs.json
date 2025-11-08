@@ -1,0 +1,30 @@
+[
+  {
+    "title": "The Unreasonable Effectiveness of Recurrent Neural Networks",
+    "authors": "Andrej Karpathy",
+    "url": "https://karpathy.github.io/2015/05/21/rnn-effectiveness/",
+    "status": "unread",
+    "categories": ["rnn", "nlp"]
+  },
+  {
+    "title": "The state of Computer Vision and AI: we are really, really far away.",
+    "authors": "Andrej Karpathy",
+    "url": "https://karpathy.github.io/2012/10/22/state-of-computer-vision/",
+    "status": "read",
+    "categories": ["computer-vision"]
+  },
+  {
+    "title": "A Programmer’s Introduction to Unicode",
+    "authors": "Nathan Reed",
+    "url": "https://www.reedbeta.com/blog/programmers-intro-to-unicode/",
+    "status": "unread",
+    "categories": ["unicode", "text", "encoding"]
+  },
+  {
+    "title": "The Technical User's Introduction to LLM Tokenization",
+    "authors": "Christopher Samiullah",
+    "url": "https://christophergs.com/blog/understanding-llm-tokenization",
+    "status": "unread",
+    "categories": ["tokenization", "llm"]
+  }
+]

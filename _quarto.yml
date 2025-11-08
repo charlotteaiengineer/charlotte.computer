@@ -1,37 +1,25 @@
 project:
-  type: website
+  type: book
   resources:
     - data/**
 
 execute-dir: project
+filters:
+  - filters/last-figure-image.lua
 
-website:
+book:
   title: "charlotte.computer"
-
-  navbar:
-    left:
-      - text: Topics
-        href: index.qmd
-      - text: Papers
-        href: papers.qmd
-      - text: Quizzes
-        href: quizzes.qmd
-      - text: Bookshelf
-        href: books.qmd
-      - text: Courses
-        href: courses.qmd
-    right:
-      - text: About
-        href: about.qmd
-      # - text: Blog
-      #   href: blog/index.qmd
-      # - text: Resources
-      #   href: resources.qmd
-      # - text: Projects
-      #   href: projects/index.qmd
-    sidebar:
-    # style: "docked"
-    search: true
+  chapters:
+    - index.qmd
+    - topics/perceptrons.ipynb
+    - topics/convolutional-neural-networks.ipynb
+    - topics/tokenization.ipynb
+    - topics/linear-regression.ipynb
+    - books.qmd
+    - papers.qmd
+    - courses.qmd
+    - resources.qmd
+    - datasets.qmd
 
 format:
   html:
